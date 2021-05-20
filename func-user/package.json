@@ -1,0 +1,26 @@
+{
+  "name": "func-user",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "ajv": "^8.4.0",
+    "pg": "^8.6.0",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.5.0",
+    "typeorm": "^0.2.32"
+  },
+  "devDependencies": {
+    "@azure/functions": "^1.2.3",
+    "@types/node": "^15.3.1",
+    "@types/pg": "^8.6.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.0.0"
+  }
+}
