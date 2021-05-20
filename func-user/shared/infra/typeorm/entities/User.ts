@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user_config')
 class User {
@@ -8,7 +8,7 @@ class User {
     @Column()
     complete_name: string;
 
-    @Column()
+    @PrimaryColumn()
     email: string;
 
     @Column()

@@ -13,6 +13,16 @@ class UserRepository implements IUserRepository {
 
     public async createUser({ completeName, email, password }: IUser): Promise<User> {
         try {
+            const emailExists = await this.ormRepository.find({
+                where: {
+                    email: email
+                }
+            });
+            
+            if(emailExists.length > 0) {
+                return;
+            }
+
             const user = this.ormRepository.create({
                 complete_name: completeName,
                 email: email,

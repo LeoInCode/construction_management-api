@@ -14,6 +14,15 @@ class PostUserService {
         try {
             const user = await this.userRepository.createUser(body);
             
+            if(!user) {
+                return {
+                    status: 400,
+                    data: {
+                        message: "Email já cadastrado"
+                    }
+                }
+            }
+            
             return {
                 status: 201,
                 data: {
