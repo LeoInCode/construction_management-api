@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import PostUserService from './services/postUserService';
-import { RequestValidation } from '../shared/utils/requestValidation';
+import { RequestValidation } from './../shared/utils/requestValidation';
+import PutUserService from './services/putUserService';
 import * as path from 'path';
 import '../container';
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
+   
     const responseSchemaValidation = RequestValidation.validate(context, req, path.join(__dirname, './schemas/requestDefinition.json'));
     if (responseSchemaValidation.status == 400) {
         context.res = responseSchemaValidation;
@@ -15,8 +15,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     try {
-        const postUser = container.resolve(PostUserService);
-        const userResponse = await postUser.execute(req.body);
+        const putUser = container.resolve(PutUserService);
+        const userResponse = await putUser.execute(req.body, req.params.id);
         context.res = {
             status: userResponse.status,
             body: userResponse.data

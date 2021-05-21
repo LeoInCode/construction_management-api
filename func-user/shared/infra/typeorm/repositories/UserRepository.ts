@@ -13,13 +13,13 @@ class UserRepository implements IUserRepository {
 
     public async createUser({ completeName, email, password }: IUser): Promise<User> {
         try {
-            const emailExists = await this.ormRepository.find({
+            const emailExists = await this.ormRepository.findOne({
                 where: {
                     email: email
                 }
             });
             
-            if(emailExists.length > 0) {
+            if(emailExists) {
                 return;
             }
 
@@ -32,7 +32,35 @@ class UserRepository implements IUserRepository {
             
             return await this.ormRepository.save(user);
         } catch (error) {            
-            throw new Error(error);
+            throw new Error(error.messsage);
+        }
+    }
+
+    public async updateUser(id: number, { completeName, password, position }: IUser): Promise<User> {
+        try {
+            let user = await this.ormRepository.findOne({id: id});
+
+            if(!user) {
+                return;
+            }
+
+            user.complete_name = completeName;
+            user.password = password;
+            user.position = position;
+
+            return await this.ormRepository.save(user);
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+    public async getUser(id: number): Promise<User> {
+        try {
+            const user = await this.ormRepository.findOne({id: id});
+            
+            return user;
+        } catch (error) {
+            throw new Error(error.message);
         }
     }
 }
