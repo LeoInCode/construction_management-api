@@ -26,6 +26,8 @@
             "title": "The completeName Schema",
             "description": "Nome do usuário",
             "default": "",
+            "minLength": 10,
+            "maxLength": 40,
             "examples": [
                 "string"
             ]
@@ -36,6 +38,9 @@
             "title": "The email Schema",
             "description": "Email de cadastro do usuário",
             "default": "",
+            "pattern": "^\\S+@\\S+\\.\\S+$",
+            "minLength": 10,
+            "maxLength": 40,
             "examples": [
                 "string"
             ]
@@ -46,6 +51,8 @@
             "title": "The password Schema",
             "description": "Senha de segurança",
             "default": "",
+            "minLength": 10,
+            "maxLength": 20,
             "examples": [
                 "string"
             ]
@@ -55,7 +62,7 @@
             "type": "boolean",
             "title": "The emailVeify Schema",
             "description": "Verificação se o email foi confirmado.",
-            "default": "",
+            "default": false,
             "examples": [
                 false
             ]
@@ -66,6 +73,9 @@
             "title": "The position Schema",
             "description": "Cargo do usuário.",
             "default": "",
+            "enum": [
+                "client", "employee", "admin"
+            ],
             "examples": [
                 "string"
             ]

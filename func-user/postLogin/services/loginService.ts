@@ -1,18 +1,25 @@
 import { injectable, inject } from 'tsyringe';
 import IUserRepository from '../../shared/repositories/IUserRepository';
+import AuthService from '../../shared/services/auth';
 import { IUser } from '../../shared/interfaces/IUser.interface';
 
 @injectable()
-class GetUserService {
+class LoginService {
+
+    private authService: AuthService;
 
     constructor(
         @inject('UserRepository')
-        private userRepository: IUserRepository) { }
+        private userRepository: IUserRepository) {
+            this.authService = new AuthService();
+        }
 
-    public async execute(id: string) {
+    public async execute(body: IUser, id: string) {
         let idFilter = +id;
         try {
             const user = await this.userRepository.getUser(idFilter);
+
+            await this.authService.verifyPassword(body.password, user.password)
 
             const userFiltered: IUser = {
                 id: user.id,
@@ -37,4 +44,4 @@ class GetUserService {
     }
 }
 
-export default GetUserService;
+export default LoginService;

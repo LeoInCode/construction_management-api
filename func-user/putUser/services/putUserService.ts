@@ -14,16 +14,7 @@ class PutUserService {
         let idFilter = +id;
 
         try {
-            const user = await this.userRepository.updateUser(idFilter, body);
-
-            if(!user) {
-                return {
-                    status: 400,
-                    data: {
-                        message: "user not found"
-                    }
-                }
-            }
+            await this.userRepository.updateUser(idFilter, body);
 
             return {
                 status: 200,
@@ -35,7 +26,7 @@ class PutUserService {
             throw {
                 status: 400,
                 data: {
-                    message: error
+                    message: error.message
                 }
             }
         }

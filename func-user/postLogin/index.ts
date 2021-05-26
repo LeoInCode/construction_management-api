@@ -1,14 +1,13 @@
 import 'reflect-metadata';
 import { container } from "tsyringe";
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import GetUserService from './services/getUserService';
+import LoginService from "./services/loginService";
 import '../container';
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
     try {
-        const getUser = container.resolve(GetUserService);
-        const userResponse = await getUser.execute(req.params.id);
+        const getUser = container.resolve(LoginService);
+        const userResponse = await getUser.execute(req.body, req.params.id);
         context.res = {
             status: userResponse.status,
             body: userResponse.data

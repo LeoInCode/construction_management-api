@@ -11,7 +11,7 @@ class UserRepository implements IUserRepository {
         this.ormRepository = getRepository(User);
     }
 
-    public async createUser({ completeName, email, password }: IUser): Promise<User> {
+    public async createUser({ completeName, email, password }: IUser, passwordHash: string): Promise<User> {
         try {
             const emailExists = await this.ormRepository.findOne({
                 where: {
@@ -20,19 +20,19 @@ class UserRepository implements IUserRepository {
             });
             
             if(emailExists) {
-                return;
+                throw "email already exists";
             }
-
+            
             const user = this.ormRepository.create({
                 complete_name: completeName,
                 email: email,
-                password: password,
+                password: passwordHash,
                 position: 'client'
             });
             
             return await this.ormRepository.save(user);
-        } catch (error) {            
-            throw new Error(error.messsage);
+        } catch (error) {
+            throw new Error(error);
         }
     }
 
@@ -41,7 +41,7 @@ class UserRepository implements IUserRepository {
             let user = await this.ormRepository.findOne({id: id});
 
             if(!user) {
-                return;
+                throw "user not found";
             }
 
             user.complete_name = completeName;
@@ -50,17 +50,21 @@ class UserRepository implements IUserRepository {
 
             return await this.ormRepository.save(user);
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error);
         }
     }
 
     public async getUser(id: number): Promise<User> {
         try {
             const user = await this.ormRepository.findOne({id: id});
+
+            if(!user) {
+                throw "user not found";
+            }
             
             return user;
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error);
         }
     }
 }
