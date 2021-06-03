@@ -11,6 +11,24 @@ class UserRepository implements IUserRepository {
         this.ormRepository = getRepository(User);
     }
 
+    public async getUserByEmail(email: string): Promise<User> {
+        try {
+            const user = await this.ormRepository.findOne({
+                where: {
+                    email: email
+                }
+            });
+            
+            if(!user) {
+                throw "user not found";
+            }
+            
+            return user;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     public async createUser({ completeName, email, password }: IUser, passwordHash: string): Promise<User> {
         try {
             const emailExists = await this.ormRepository.findOne({
