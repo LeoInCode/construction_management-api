@@ -12,7 +12,6 @@ const tokenService = new TokenService(allowlist, blocklist);
 export default {
     access: {
         name: 'access token',
-        // list: blocklistAccessToken,
         expiration: [15, 'm'],
         create(user: User) {
           return tokenService.createTokenJWT(user, this.expiration)
@@ -20,8 +19,8 @@ export default {
         async verify(token: string) {
           return await tokenService.verifyTokenJWT(token, this.name)
         },
-        invalid(token: string) {
-          return tokenService.invalidTokenJWT(token)
+        async invalid(token: string) {
+          return await tokenService.invalidTokenJWT(token)
         }
       },
       
@@ -30,16 +29,15 @@ export default {
        */
       refresh: {
         name: 'refresh token',
-        // list: allowlistRefreshToken,
         expiration: [5, 'd'],
         async create(user: User) {
           return await tokenService.createTokenOpacity(user, this.expiration)
         },
-        verify (token: string) {
-          return tokenService.verifyTokenOpacity(token, this.name)
+        async verify (token: string) {
+          return await tokenService.verifyTokenOpacity(token, this.name)
         },
-        invalid (token: string) {
-          return tokenService.invalidTokenOpacity(token)
+        async invalid (token: string) {
+          return await tokenService.invalidTokenOpacity(token)
         }
     },
 }

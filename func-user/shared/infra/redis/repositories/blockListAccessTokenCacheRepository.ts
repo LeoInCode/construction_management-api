@@ -27,7 +27,7 @@ class BlockListTokenCacheRepository implements IBlockListAccessTokenCacheReposit
 
   public async containsKey(token: string): Promise<boolean> {
       try {
-        const result = await this.existsAsync(token);
+        const result = await this.existsAsync(this.prefix + token);
 
         return result === 1;
       } catch (error) {
@@ -35,14 +35,16 @@ class BlockListTokenCacheRepository implements IBlockListAccessTokenCacheReposit
       }
   }
 
-  public async set(token: string, dateExpiration): Promise<string> {
+  public async set(token: string, dateExpiration: number): Promise<string> {
     try {
-      const result = await this.setAsync(this.prefix + token);
+      const result = await this.setAsync(this.prefix + token, '');
 
       this.expireAsync(this.prefix + token, dateExpiration);
 
       return result;
     } catch (error) {
+      console.log(error);
+      
       throw new Error(error);
     }
   }

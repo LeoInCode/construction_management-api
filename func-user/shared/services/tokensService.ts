@@ -14,7 +14,7 @@ class TokenService {
 
     public createTokenJWT(user: User, [timeQuantity, timeUnity]: any): string {
         const { id, complete_name, email, position }: User = user;
-        const token = jwt.sign({ id, complete_name, email }, process.env.CHAVE_JWT, {
+        const token = jwt.sign({ id, complete_name, email, position }, process.env.CHAVE_JWT, {
           expiresIn: timeQuantity + timeUnity
         });
         return token;
@@ -26,7 +26,7 @@ class TokenService {
         const { id, complete_name, email, position }: any = jwt.verify(token, process.env.CHAVE_JWT);
         return { id, complete_name, email, position };
       } catch (error) {
-        throw new Error(error);
+        throw error;
       }      
     }
 
@@ -39,10 +39,10 @@ class TokenService {
         }
     }
 
-    public invalidTokenJWT(token: string) {
-      const dateExpiration = jwt.decode(token);
+    public async invalidTokenJWT(token: string) {
+      const dateExpiration: any = jwt.decode(token);
       const tokenHash = this.generateTokenHash(token);
-      return this.blockListTokenCacheRepository.set(tokenHash, dateExpiration);
+      return await this.blockListTokenCacheRepository.set(tokenHash, dateExpiration.exp);
     }
 
     public async createTokenOpacity(user: User, [timeQuantity, timeUnity]: any) {
@@ -71,7 +71,7 @@ class TokenService {
 
     private verifyTokenSend(token: string, name: string) {
         if (!token) {
-          throw new Error(`${name} não enviado!`);
+          throw `${name} não enviado!`;
         }
     }
 

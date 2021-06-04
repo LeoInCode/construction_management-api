@@ -1,16 +1,17 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import GetUserService from './services/getUserService';
+import LogoutService from "./services/logoutService";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    
+      
     try {
-        if(!req.headers['authorization']) {
+        if(!req.headers['authorization'] || !req.body.refreshToken) {
             throw {data: {message: 'not authorized'}};
         }
     
-        let token = req.headers.authorization.split(' ')[1];
-    
-        const userResponse = await new GetUserService().execute(token);
+        let bearerToken = req.headers.authorization.split(' ')[1];
+        let refreshToken = req.body.refreshToken
+
+        const userResponse = await new LogoutService().execute(refreshToken,bearerToken);
         context.res = {
             status: userResponse.status,
             body: userResponse.data
