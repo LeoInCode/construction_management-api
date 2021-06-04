@@ -1,9 +1,8 @@
 import { injectable, inject } from 'tsyringe';
 import IUserRepository from '../../shared/repositories/IUserRepository';
 import AuthService from '../../shared/services/authService';
-import { IResponseLogin, IUser } from '../../shared/interfaces/IUser.interface';
+import { IResponseLogin } from '../../shared/interfaces/IUser.interface';
 import tokens from '../../shared/utils/tokens'
-import authService from '../../shared/services/authService';
 
 @injectable()
 class LoginService {
@@ -12,12 +11,12 @@ class LoginService {
 
     constructor(
         @inject('UserRepository')
-        private userRepository: IUserRepository) {
-            this.authService = new AuthService();
-        }
+        private userRepository: IUserRepository) { }
 
     public async execute(email: string, password: string) {
-        try {            
+        try {
+            this.authService = new AuthService();
+
             const user = await this.userRepository.getUserByEmail(email);
             
             await this.authService.verifyPassword(password, user.password);

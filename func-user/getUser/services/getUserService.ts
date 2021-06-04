@@ -1,24 +1,27 @@
 import { injectable, inject } from 'tsyringe';
 import IUserRepository from '../../shared/repositories/IUserRepository';
 import { IUser } from '../../shared/interfaces/IUser.interface';
+import AuthService from '../../shared/services/authService';
+import tokens from '../../shared/utils/tokens';
 
 @injectable()
 class GetUserService {
 
-    constructor(
-        @inject('UserRepository')
-        private userRepository: IUserRepository) { }
+    private authService: AuthService;
 
-    public async execute(id: string) {
-        let idFilter = +id;
+    constructor() { }
+
+    public async execute(token: string) {
         try {
-            const user = await this.userRepository.getUser(idFilter);
+            this.authService = new AuthService();
+
+            const { id, complete_name, email, position } = await tokens.access.verify(token);
 
             const userFiltered: IUser = {
-                id: user.id,
-                completeName: user.complete_name,
-                email: user.email,
-                position: user.position
+                id: id,
+                completeName: complete_name,
+                email: email,
+                position: position
             }
 
             return {

@@ -1,14 +1,16 @@
-import 'reflect-metadata';
-import { container } from "tsyringe";
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import GetUserService from './services/getUserService';
-import '../container';
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     
+    if(!req.headers['authorization']) {
+        throw {data: {message: 'not authorized'}};
+    }
+
+    let token = req.headers.authorization.split(' ')[1];
+    
     try {
-        const getUser = container.resolve(GetUserService);
-        const userResponse = await getUser.execute(req.params.id);
+        const userResponse = await new GetUserService().execute(token);
         context.res = {
             status: userResponse.status,
             body: userResponse.data

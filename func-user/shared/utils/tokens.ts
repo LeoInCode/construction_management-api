@@ -13,12 +13,12 @@ export default {
     access: {
         name: 'access token',
         // list: blocklistAccessToken,
-        expiration: [15, 'minutes'],
+        expiration: [15, 'm'],
         create(user: User) {
           return tokenService.createTokenJWT(user, this.expiration)
         },
-        verify(token: string) {
-          return tokenService.verifyTokenJWT(token, this.name)
+        async verify(token: string) {
+          return await tokenService.verifyTokenJWT(token, this.name)
         },
         invalid(token: string) {
           return tokenService.invalidTokenJWT(token)
@@ -31,7 +31,7 @@ export default {
       refresh: {
         name: 'refresh token',
         // list: allowlistRefreshToken,
-        expiration: [5, 'days'],
+        expiration: [5, 'd'],
         async create(user: User) {
           return await tokenService.createTokenOpacity(user, this.expiration)
         },
