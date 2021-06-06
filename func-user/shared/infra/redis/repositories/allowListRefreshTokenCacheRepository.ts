@@ -14,11 +14,11 @@ class AllowListRefreshTokenCacheRepository implements IAllowListRefreshTokenCach
 
   private prefix: string = 'allowlist:';
 
-  public async get(token: string): Promise<string> {
+  public async get(token: string): Promise<User> {
     try {
       const result = await this.getAsync(this.prefix + token);
 
-      return result;
+      return JSON.parse(result);
     } catch (error) {
       throw new Error(error);
     }

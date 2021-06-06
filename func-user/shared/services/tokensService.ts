@@ -52,19 +52,19 @@ class TokenService {
       return tokenOpacity;
     }
 
-    public async verifyTokenOpacity(token: string, name: string) {
+    public async verifyTokenOpacity(token: string, name: string): Promise<User> {
         this.verifyTokenSend(token, name);
-        const id = await this.allowListRefreshTokenCacheRepository.get(token);
-        this.verifyTokenValid(id, name);
-        return id;
+        const user = await this.allowListRefreshTokenCacheRepository.get(token);
+        this.verifyTokenValid(user, name);
+        return user;
     }
 
     public async invalidTokenOpacity(token: string) {
         await this.allowListRefreshTokenCacheRepository.del(token);
     }
 
-    private verifyTokenValid(id: string, name: string) {
-        if (!id) {
+    private verifyTokenValid(user: User, name: string) {
+        if (!user) {
           throw `${name} inválido!`;
         }
     }

@@ -1,20 +1,16 @@
 import 'reflect-metadata';
 import { container } from "tsyringe";
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import LoginService from "./services/loginService";
-import { RequestValidation } from '../shared/utils/requestValidation';
-import * as path from 'path';
-import '../container';
+import RefreshTokenService from './services/refreshTokenService';
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     try {
-        if(!req.headers['email'] || !req.headers['password']) {
+        if(!req.body.refreshToken) {
             throw {data: {message: 'invalid fields'}};
         }
     
-        const getUser = container.resolve(LoginService);
-        const userResponse = await getUser.execute(req.headers['email'], req.headers['password']);
+        const userResponse = await new RefreshTokenService().execute(req.body.refreshToken);
         context.res = {
             status: userResponse.status,
             body: userResponse.data
