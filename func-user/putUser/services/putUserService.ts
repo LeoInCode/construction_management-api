@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import IUserRepository from '../../shared/repositories/IUserRepository';
 import AuthService from '../../shared/services/authService';
+import { authorization } from '../../shared/utils/authorization/authorization';
 import tokens from '../../shared/utils/tokens';
 import { IReponseData } from './../../shared/interfaces/IReponseData.interface';
 import { IUser } from './../../shared/interfaces/IUser.interface';
@@ -25,6 +26,8 @@ class PutUserService {
             if(idFilter != id) {
                 throw 'user not authenticated';
             }
+
+            const { permission } = authorization(position, 'user', 'update');
 
             await this.userRepository.updateUser(idFilter, body);
 

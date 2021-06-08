@@ -35,7 +35,7 @@ class AllowListRefreshTokenCacheRepository implements IAllowListRefreshTokenCach
     }
   }
 
-  public async del(token: string): Promise<String> {
+  public async del(token: string): Promise<string> {
     try {
       const result = await this.delAsync(this.prefix + token);
 

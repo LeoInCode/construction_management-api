@@ -7,10 +7,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         if(!req.headers['authorization']) {
             throw {data: {message: 'not authorized'}};
         }
-    
+            
         let token = req.headers.authorization.split(' ')[1];
     
-        const userResponse = await new GetUserService().execute(token);
+        const userResponse = await new GetUserService().execute(token, req.query.entity, req.query.action);
         context.res = {
             status: userResponse.status,
             body: userResponse.data

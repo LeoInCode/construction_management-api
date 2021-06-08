@@ -3,6 +3,7 @@ import IUserRepository from '../../shared/repositories/IUserRepository';
 import { IUser } from '../../shared/interfaces/IUser.interface';
 import AuthService from '../../shared/services/authService';
 import tokens from '../../shared/utils/tokens';
+import { authorization } from '../../shared/utils/authorization/authorization';
 
 @injectable()
 class GetUserService {
@@ -11,17 +12,20 @@ class GetUserService {
 
     constructor() { }
 
-    public async execute(token: string) {
+    public async execute(token: string, entity: string, action: string) {
         try {
             this.authService = new AuthService();
 
             const { id, complete_name, email, position } = await tokens.access.verify(token);
 
+            const { permission } = authorization(position, entity, action);
+
             const userFiltered: IUser = {
                 id: id,
                 completeName: complete_name,
                 email: email,
-                position: position
+                position: position,
+                permission: permission
             }
 
             return {

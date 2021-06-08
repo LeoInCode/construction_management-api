@@ -5,6 +5,10 @@ export interface IUser {
     password?: string;
     emailVerify?: boolean;
     position?: string;
+    permission?: {
+        all: boolean,
+        yourself: boolean
+    }
 }
 
 export interface IResponseLogin {

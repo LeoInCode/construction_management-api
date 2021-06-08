@@ -26,11 +26,11 @@ class TokenService {
         const { id, complete_name, email, position }: any = jwt.verify(token, process.env.CHAVE_JWT);
         return { id, complete_name, email, position };
       } catch (error) {
-        throw error;
+        throw new Error(error);
       }      
     }
 
-    public async verifyTokenNaBlocklist(token: string, name: string) {    
+    public async verifyTokenNaBlocklist(token: string, name: string): Promise<void> {    
         const tokenHash = this.generateTokenHash(token)
 
         const tokenNaBlocklist = await this.blockListTokenCacheRepository.containsKey(tokenHash);
@@ -39,13 +39,13 @@ class TokenService {
         }
     }
 
-    public async invalidTokenJWT(token: string) {
+    public async invalidTokenJWT(token: string): Promise<string> {
       const dateExpiration: any = jwt.decode(token);
       const tokenHash = this.generateTokenHash(token);
       return await this.blockListTokenCacheRepository.set(tokenHash, dateExpiration.exp);
     }
 
-    public async createTokenOpacity(user: User, [timeQuantity, timeUnity]: any) {
+    public async createTokenOpacity(user: User, [timeQuantity, timeUnity]: any): Promise<string> {
       const tokenOpacity = crypto.randomBytes(24).toString('hex');
       const dateExpiration = moment().add(timeQuantity, timeUnity).unix();      
       await this.allowListRefreshTokenCacheRepository.set(tokenOpacity, user, dateExpiration);
@@ -53,29 +53,33 @@ class TokenService {
     }
 
     public async verifyTokenOpacity(token: string, name: string): Promise<User> {
+      try {
         this.verifyTokenSend(token, name);
         const user = await this.allowListRefreshTokenCacheRepository.get(token);
         this.verifyTokenValid(user, name);
         return user;
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 
-    public async invalidTokenOpacity(token: string) {
-        await this.allowListRefreshTokenCacheRepository.del(token);
+    public async invalidTokenOpacity(token: string): Promise<string> {
+      return await this.allowListRefreshTokenCacheRepository.del(token);
     }
 
-    private verifyTokenValid(user: User, name: string) {
+    private verifyTokenValid(user: User, name: string): void {
         if (!user) {
           throw `${name} inválido!`;
         }
     }
 
-    private verifyTokenSend(token: string, name: string) {
+    private verifyTokenSend(token: string, name: string): void {
         if (!token) {
           throw `${name} não enviado!`;
         }
     }
 
-    private generateTokenHash (token: string) {
+    private generateTokenHash (token: string): string {
       return crypto.createHash('sha256').update(token).digest('hex');
     }
 }
