@@ -15,13 +15,14 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                         generationStrategy: 'increment' 
                     },
                     {
-                        name: 'display_name',
+                        name: 'complete_name',
                         type: 'varchar',
                         isNullable: false
                     },
                     {
                         name: 'email',
                         type: 'varchar',
+                        isPrimary: true,
                         isNullable: false
                     },
                     {
@@ -30,15 +31,14 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name: 'emailVerify',
+                        name: 'email_verify',
                         type: 'boolean',
                         default: false
                     },
                     {
                         name: 'position',
                         type: 'varchar',
-                        enum: ['client', 'employee', 'admin']
-                    }
+                        enum: ['client', 'employee', 'admin']                    }
                 ]
             })
         )
