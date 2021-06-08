@@ -29,7 +29,7 @@ class PutUserService {
 
             const { permission } = authorization(position, 'user', 'update');
 
-            await this.userRepository.updateUser(idFilter, body);
+            await this.userRepository.updateUser(id, body);
 
             return {
                 status: 200,

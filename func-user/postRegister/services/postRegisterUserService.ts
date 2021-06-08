@@ -5,7 +5,7 @@ import IUserRepository from "../../shared/repositories/IUserRepository";
 import AuthService from "../../shared/services/authService";
 
 @injectable()
-class PostUserService {
+class PostRegisterUserService {
 
     // private authService: AuthService;
 
@@ -37,4 +37,4 @@ class PostUserService {
     }
 }
 
-export default PostUserService;
+export default PostRegisterUserService;

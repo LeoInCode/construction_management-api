@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import PostUserService from './services/postUserService';
+import PostRegisterUserService from './services/postRegisterUserService';
 import { RequestValidation } from '../shared/utils/requestValidation';
 import * as path from 'path';
 import '../container';
@@ -15,7 +15,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 
     try {
-        const postUser = container.resolve(PostUserService);
+        const postUser = container.resolve(PostRegisterUserService);
         const userResponse = await postUser.execute(req.body);
         context.res = {
             status: userResponse.status,

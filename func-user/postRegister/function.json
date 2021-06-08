@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": [ "post" ],
-      "route": "user"
+      "route": "register"
     },
     {
       "type": "http",
@@ -14,5 +14,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/postUser/index.js"
+  "scriptFile": "../dist/postRegister/index.js"
 }
