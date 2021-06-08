@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "completeName",
+        "email",
+        "password"
+    ],
+    "properties": {
+        "id": {
+            "$id": "#/properties/id",
+            "type": "integer",
+            "title": "The id Schema",
+            "description": "ID que vai identificar o usuário.",
+            "default": "",
+            "examples": [
+                1
+            ]
+        },
+        "completeName": {
+            "$id": "#/properties/completeName",
+            "type": "string",
+            "title": "The completeName Schema",
+            "description": "Nome do usuário",
+            "default": "",
+            "minLength": 10,
+            "maxLength": 40,
+            "examples": [
+                "string"
+            ]
+        },
+        "email": {
+            "$id": "#/properties/email",
+            "type": "string",
+            "title": "The email Schema",
+            "description": "Email de cadastro do usuário",
+            "default": "",
+            "pattern": "^\\S+@\\S+\\.\\S+$",
+            "minLength": 10,
+            "maxLength": 40,
+            "examples": [
+                "string"
+            ]
+        },
+        "password": {
+            "$id": "#/properties/password",
+            "type": "string",
+            "title": "The password Schema",
+            "description": "Senha de segurança",
+            "default": "",
+            "minLength": 10,
+            "maxLength": 20,
+            "examples": [
+                "string"
+            ]
+        },
+        "emailVeify": {
+            "$id": "#/properties/emailVeify",
+            "type": "boolean",
+            "title": "The emailVeify Schema",
+            "description": "Verificação se o email foi confirmado.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "position": {
+            "$id": "#/properties/position",
+            "type": "string",
+            "title": "The position Schema",
+            "description": "Cargo do usuário.",
+            "default": "",
+            "enum": [
+                "client", "employee", "admin"
+            ],
+            "examples": [
+                "string"
+            ]
+        }
+    },
+    "additionalProperties": true
+}
