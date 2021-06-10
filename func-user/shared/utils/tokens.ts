@@ -12,7 +12,7 @@ const tokenService = new TokenService(allowlist, blocklist);
 export default {
     access: {
         name: 'access token',
-        expiration: [1, 'm'],
+        expiration: [1, 'd'],
         create(user: User) {
           return tokenService.createTokenJWT(user, this.expiration)
         },

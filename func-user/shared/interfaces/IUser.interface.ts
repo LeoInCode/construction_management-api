@@ -11,7 +11,7 @@ export interface IUser {
     }
 }
 
-export interface IResponseLogin {
+export interface IResponseUser {
     id: number,
     completeName: string;
     email: string;

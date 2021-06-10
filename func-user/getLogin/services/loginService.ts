@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import IUserRepository from '../../shared/repositories/IUserRepository';
 import AuthService from '../../shared/services/authService';
-import { IResponseLogin } from '../../shared/interfaces/IUser.interface';
+import { IResponseUser } from '../../shared/interfaces/IUser.interface';
 import tokens from '../../shared/utils/tokens'
 
 @injectable()
@@ -24,7 +24,7 @@ class LoginService {
             const accessToken = tokens.access.create(user) //cria o token de usuário logado
             const refreshToken = await tokens.refresh.create(user) //cria um refresh token para o usuário permanecer logado
             
-            const userFiltered: IResponseLogin = {
+            const userFiltered: IResponseUser = {
                 id: user.id,
                 completeName: user.complete_name,
                 email: user.email,

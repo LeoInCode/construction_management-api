@@ -22,7 +22,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let token = req.headers.authorization.split(' ')[1];
         
         const putUser = container.resolve(PutUserService);
-        const userResponse = await putUser.execute(req.body, req.params.id, token);
+        const userResponse = await putUser.execute(req.body, token);
         context.res = {
             status: userResponse.status,
             body: userResponse.data

@@ -61,12 +61,14 @@ class UserRepository implements IUserRepository {
             if(!user) {
                 throw "user not found";
             }
+            
+            await this.ormRepository.update({id: id}, {
+                complete_name: completeName || user.complete_name,
+                password: password || user.password,
+                position: position || user.position
+            });
 
-            user.complete_name = completeName;
-            user.password = password;
-            user.position = position;
-
-            return await this.ormRepository.save(user);
+            return await this.ormRepository.findOne({id: id});
         } catch (error) {
             throw new Error(error);
         }

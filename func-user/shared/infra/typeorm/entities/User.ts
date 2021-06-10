@@ -17,7 +17,7 @@ class User {
     @Column()
     email_verify: boolean;
 
-    @Column()
+    @Column({ type: "enum", enum: ["client", "employee", "admin"], default: "client" })
     position: string;
 }
 

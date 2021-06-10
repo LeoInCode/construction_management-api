@@ -19,13 +19,12 @@ const methods = {
     }
 }
 
-export function authorization (position: string, entity: string, action: string) {
+export function authorization (position: string, entity: string, action: string) {   
     const permissionPosition = controle.can(position);
-    
     const actions = methods[action];
     const permissionAll = permissionPosition[actions.all](entity);
     const permissionYourself = permissionPosition[actions.yourself](entity);
-
+    
     if(permissionAll.granted === false && permissionYourself.granted === false) {
         throw {message: 'user not authorized'}
     }

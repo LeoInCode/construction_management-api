@@ -1,10 +1,11 @@
 import { inject, injectable } from 'tsyringe';
+import User from '../../shared/infra/typeorm/entities/User';
+import { IResponseUser } from '../../shared/interfaces/IUser.interface';
 import IUserRepository from '../../shared/repositories/IUserRepository';
 import AuthService from '../../shared/services/authService';
-import { authorization } from '../../shared/utils/authorization/authorization';
 import tokens from '../../shared/utils/tokens';
+import { IPayload } from '../interfaces/IPayload.interface';
 import { IReponseData } from './../../shared/interfaces/IReponseData.interface';
-import { IUser } from './../../shared/interfaces/IUser.interface';
 
 @injectable()
 class PutUserService {
@@ -15,28 +16,40 @@ class PutUserService {
         @inject('UserRepository')
         private userRepository: IUserRepository) { }
 
-    public async execute(body: IUser, idReceived: string, token: string): Promise<IReponseData> {
+    public async execute(body: IPayload, accessTken: string): Promise<IReponseData> {
         try {
-            let idFilter = +idReceived;
 
             this.authService = new AuthService();
 
-            const { id, complete_name, email, position } = await tokens.access.verify(token);
+            const { id, complete_name, email, position } = await tokens.access.verify(accessTken);
 
-            if(idFilter != id) {
-                throw 'user not authenticated';
+            if(body.password) {
+                const passwordHash = await this.authService.generatePasswordHash(body.password);
+                body.password = passwordHash;
             }
 
-            const { permission } = authorization(position, 'user', 'update');
+            const user: User = await this.userRepository.updateUser(id, body);
+            
+            await tokens.refresh.invalid(body.refreshToken)
+            await tokens.access.invalid(accessTken)
 
-            await this.userRepository.updateUser(id, body);
+            const accessToken = tokens.access.create(user) //cria o token de usuário logado
+            const refreshToken = await tokens.refresh.create(user) //cria um refresh token para o usuário permanecer logado
+            console.log(position);
+            
+            const userFiltered: IResponseUser = {
+                id: user.id,
+                completeName: user.complete_name,
+                email: user.email,
+                position: user.position,
+                accessToken: accessToken,
+                refreshToken: refreshToken
+            }
 
             return {
                 status: 200,
-                data: {
-                    message: "success"
-                }
-            } 
+                data: userFiltered
+            }
         } catch (error) {
             throw {
                 status: 400,

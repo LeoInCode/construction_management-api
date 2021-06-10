@@ -7,7 +7,7 @@ import AuthService from "../../shared/services/authService";
 @injectable()
 class PostRegisterUserService {
 
-    // private authService: AuthService;
+    private authService: AuthService;
 
     constructor(
         @inject('UserRepository')
@@ -15,10 +15,11 @@ class PostRegisterUserService {
 
     public async execute(body: IUser): Promise<IReponseData> {
         try {
+            this.authService = new AuthService();
 
-            // const passwordHash = await this.authService.generatePasswordHash(body.password);
+            const passwordHash = await this.authService.generatePasswordHash(body.password);
 
-            await this.userRepository.createUser(body, body.password);
+            await this.userRepository.createUser(body, passwordHash);
 
             return {
                 status: 201,

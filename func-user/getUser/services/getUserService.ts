@@ -17,9 +17,9 @@ class GetUserService {
             this.authService = new AuthService();
 
             const { id, complete_name, email, position } = await tokens.access.verify(token);
-
+            
             const { permission } = authorization(position, entity, action);
-
+            
             const userFiltered: IUser = {
                 id: id,
                 completeName: complete_name,
