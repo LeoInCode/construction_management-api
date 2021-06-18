@@ -5,79 +5,39 @@
     "title": "The Root Schema",
     "description": "The root schema comprises the entire JSON document.",
     "required": [
-        "completeName",
-        "email",
-        "password"
+        "displayName",
+        "unitPrice",
+        "quantity"
     ],
     "properties": {
-        "id": {
-            "$id": "#/properties/id",
-            "type": "integer",
-            "title": "The id Schema",
-            "description": "ID que vai identificar o usuário.",
-            "default": "",
-            "examples": [
-                1
-            ]
-        },
-        "completeName": {
-            "$id": "#/properties/completeName",
+        "displayName": {
+            "$id": "#/properties/displayName",
             "type": "string",
-            "title": "The completeName Schema",
-            "description": "Nome do usuário",
-            "default": "",
-            "minLength": 10,
+            "title": "The displayName Schema",
+            "description": "Nome do material",
+            "minLength": 2,
             "maxLength": 40,
-            "examples": [
-                "string"
-            ]
-        },
-        "email": {
-            "$id": "#/properties/email",
-            "type": "string",
-            "title": "The email Schema",
-            "description": "Email de cadastro do usuário",
             "default": "",
-            "pattern": "^\\S+@\\S+\\.\\S+$",
-            "minLength": 10,
-            "maxLength": 40,
             "examples": [
                 "string"
             ]
         },
-        "password": {
-            "$id": "#/properties/password",
-            "type": "string",
-            "title": "The password Schema",
-            "description": "Senha de segurança",
-            "default": "",
-            "minLength": 10,
-            "maxLength": 20,
+        "unitPrice": {
+            "$id": "#/properties/unitPrice",
+            "type": "number",
+            "title": "The unitPrice Schema",
+            "description": "Valor unitário do material",
             "examples": [
-                "string"
+                0
             ]
         },
-        "emailVeify": {
-            "$id": "#/properties/emailVeify",
-            "type": "boolean",
-            "title": "The emailVeify Schema",
-            "description": "Verificação se o email foi confirmado.",
-            "default": false,
+        "quantity": {
+            "$id": "#/properties/quantity",
+            "type": "number",
+            "title": "The quantity Schema",
+            "description": "Quantidade do material",
             "examples": [
-                false
-            ]
-        },
-        "position": {
-            "$id": "#/properties/position",
-            "type": "string",
-            "title": "The position Schema",
-            "description": "Cargo do usuário.",
-            "default": "",
-            "enum": [
-                "client", "employee", "admin"
-            ],
-            "examples": [
-                "string"
+                0
             ]
         }
     },

@@ -6,7 +6,7 @@ class MaterialPrice {
     id: number;
 
     @PrimaryColumn()
-    construction_id: string;
+    construction_id: number;
 
     @Column()
     display_name: string;  

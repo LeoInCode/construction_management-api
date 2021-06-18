@@ -15,12 +15,12 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
     
     try {
-        const createMaterial = container.resolve(CreateMaterialPriceService);
-        // const userResponse = await createMaterial.execute(req.body);
-        // context.res = {
-        //     status: userResponse.status,
-        //     body: userResponse.data
-        // };
+        const createMaterialPrice = container.resolve(CreateMaterialPriceService);
+        const materialPrice = await createMaterialPrice.execute(req.body);
+        context.res = {
+            status: 200,
+            body: materialPrice
+        };
     } catch (error) {
         context.res = {
             status: error.status ? error.status : 500,
