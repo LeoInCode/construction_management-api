@@ -7,7 +7,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     try {
         if(!req.body.refreshToken) {
-            throw {data: {message: 'invalid fields'}};
+            throw {data: {message: 'this user is not authenticated'}};
         }
     
         const userResponse = await new RefreshTokenService().execute(req.body.refreshToken);

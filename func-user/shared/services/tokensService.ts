@@ -22,7 +22,7 @@ class TokenService {
 
     public async verifyTokenJWT(token: string, name: string) {
       try {
-        await this.verifyTokenNaBlocklist(token, name);
+        await this.verifyTokenNaBlockList(token, name);
         const { id, complete_name, email, position }: any = jwt.verify(token, process.env.CHAVE_JWT);
         return { id, complete_name, email, position };
       } catch (error) {
@@ -30,7 +30,7 @@ class TokenService {
       }      
     }
 
-    public async verifyTokenNaBlocklist(token: string, name: string): Promise<void> {    
+    public async verifyTokenNaBlockList(token: string, name: string): Promise<void> {    
         const tokenHash = this.generateTokenHash(token)
 
         const tokenNaBlocklist = await this.blockListTokenCacheRepository.containsKey(tokenHash);

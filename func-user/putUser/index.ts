@@ -16,7 +16,12 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     try {
         if(!req.headers['authorization']) {
-            throw {data: {message: 'not authorized'}};
+            throw {
+                data: {
+                    status: "error",
+                    message: 'this user is not authenticated'
+                }
+            };
         }
     
         let token = req.headers.authorization.split(' ')[1];

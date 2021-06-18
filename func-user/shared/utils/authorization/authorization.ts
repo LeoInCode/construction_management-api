@@ -26,7 +26,7 @@ export function authorization (position: string, entity: string, action: string)
     const permissionYourself = permissionPosition[actions.yourself](entity);
     
     if(permissionAll.granted === false && permissionYourself.granted === false) {
-        throw {message: 'user not authorized'}
+        throw {message: 'this user don’t have authorization'}
     }
 
     const result = {

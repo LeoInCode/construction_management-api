@@ -16,12 +16,12 @@ class PutUserService {
         @inject('UserRepository')
         private userRepository: IUserRepository) { }
 
-    public async execute(body: IPayload, accessTken: string): Promise<IReponseData> {
+    public async execute(body: IPayload, accessToken: string): Promise<IReponseData> {
         try {
 
             this.authService = new AuthService();
 
-            const { id, complete_name, email, position } = await tokens.access.verify(accessTken);
+            const { id, complete_name, email, position } = await tokens.access.verify(accessToken);
 
             if(body.password) {
                 const passwordHash = await this.authService.generatePasswordHash(body.password);
@@ -31,18 +31,17 @@ class PutUserService {
             const user: User = await this.userRepository.updateUser(id, body);
             
             await tokens.refresh.invalid(body.refreshToken)
-            await tokens.access.invalid(accessTken)
+            await tokens.access.invalid(accessToken)
 
-            const accessToken = tokens.access.create(user) //cria o token de usuário logado
+            const accessTokenCriado = tokens.access.create(user) //cria o token de usuário logado
             const refreshToken = await tokens.refresh.create(user) //cria um refresh token para o usuário permanecer logado
-            console.log(position);
             
             const userFiltered: IResponseUser = {
                 id: user.id,
                 completeName: user.complete_name,
                 email: user.email,
                 position: user.position,
-                accessToken: accessToken,
+                accessToken: accessTokenCriado,
                 refreshToken: refreshToken
             }
 
