@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateTableUserConfig1621479341721 implements MigrationInterface {
+export class CreateTableMaterialPrices1623115447922 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'user_config',
+                name: 'material_price',
                 columns: [
                     {
                         name: 'id',
@@ -15,30 +15,34 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                         generationStrategy: 'increment' 
                     },
                     {
-                        name: 'complete_name',
+                        name: 'construction_id',
+                        type: 'number',
+                        isNullable: false
+                    },
+                    {
+                        name: 'display_name',
                         type: 'varchar',
                         isNullable: false
                     },
                     {
-                        name: 'email',
-                        type: 'varchar',
-                        isPrimary: true,
+                        name: 'unit_price',
+                        type: 'numeric',
                         isNullable: false
                     },
                     {
-                        name: 'password',
-                        type: 'varchar',
-                        isNullable: false,
+                        name: 'quantity',
+                        type: 'numeric',
+                        default: 0
                     },
                     {
-                        name: 'email_verify',
-                        type: 'boolean',
-                        default: false
+                        name: 'creation_date',
+                        type: 'timestamp',
+                        default: 'now()'
                     },
                     {
-                        name: 'position',
-                        type: 'varchar',
-                        enum: ['client', 'employee', 'admin']
+                        name: 'last_update',
+                        type: 'timestamp',
+                        default: 'now()'
                     }
                 ]
             })
@@ -46,7 +50,7 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('user_config');
+        await queryRunner.dropTable('material_price');
     }
 
 }
