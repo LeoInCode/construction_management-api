@@ -15,8 +15,14 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
     
     try {
+        if(!req.headers['authorization']) {
+            throw {data: {message: 'not authorized'}};
+        }
+            
+        let accessToken = req.headers.authorization.split(' ')[1];
+
         const createMaterialPrice = container.resolve(CreateMaterialPriceService);
-        const materialPrice = await createMaterialPrice.execute(req.body);
+        const materialPrice = await createMaterialPrice.execute(req.body, accessToken);
         context.res = {
             status: 200,
             body: materialPrice
