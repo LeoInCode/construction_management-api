@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [],
+    "properties": {
+        "displayName": {
+            "$id": "#/properties/displayName",
+            "type": "string",
+            "title": "The displayName Schema",
+            "description": "Nome do material",
+            "minLength": 2,
+            "maxLength": 40,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "unitPrice": {
+            "$id": "#/properties/unitPrice",
+            "type": "number",
+            "title": "The unitPrice Schema",
+            "description": "Valor unitário do material",
+            "examples": [
+                0
+            ]
+        },
+        "quantity": {
+            "$id": "#/properties/quantity",
+            "type": "number",
+            "title": "The quantity Schema",
+            "description": "Quantidade do material",
+            "examples": [
+                0
+            ]
+        }
+    },
+    "additionalProperties": true
+}
