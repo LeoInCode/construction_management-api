@@ -3,6 +3,7 @@ import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndp
 import { IMaterialPrice } from "../../shared/interfaces/IMaterialPrice.interface";
 import { IMaterialPriceRepository } from "../../shared/repositories/IMaterialPriceRepository";
 import HandleContent from "../../shared/services/handleContent";
+import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 
 @injectable()
 class CreateMaterialPriceService {
@@ -17,16 +18,17 @@ class CreateMaterialPriceService {
     ) { }
 
     public async execute(body: IMaterialPrice, accessToken: string) {
-        try {
-            console.log(body);
-            
+        try {            
             this.handleContent = new HandleContent(this.getUserEndpoint);
 
-            const user = await this.handleContent.getUser(accessToken, 'price', 'create');
+            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.create);
             
-            const material = this.materialPriceRepository.createMaterialPrice(body);
+            const material = await this.materialPriceRepository.createMaterialPrice(body);
     
-            return material;
+            return {
+                status: 201,
+                data: material
+            }
         } catch (error) {
             throw {
                 status: 400,

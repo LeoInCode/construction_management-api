@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { RequestValidation } from "../shared/utils/requestValidation";
-import CreateMaterialPriceService from './services/createMarialPriceService'
+import CreateMaterialPriceService from './services/createMaterialPriceService'
 import * as path from 'path';
 import '../container';
 
@@ -24,8 +24,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         const createMaterialPrice = container.resolve(CreateMaterialPriceService);
         const materialPrice = await createMaterialPrice.execute(req.body, accessToken);
         context.res = {
-            status: 200,
-            body: materialPrice
+            status: materialPrice.status,
+            body: materialPrice.data
         };
     } catch (error) {
         context.res = {

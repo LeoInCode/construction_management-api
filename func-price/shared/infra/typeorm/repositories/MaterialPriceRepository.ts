@@ -17,10 +17,12 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
                 construction_id: constructionId,
                 display_name: displayName,
                 unit_price: unitPrice,
-                quantity: quantity
+                quantity: quantity,
+                creation_date: new Date(),
+                last_update: new Date()
             });
 
-            return this.ormRepository.save(materialPrice);
+            return await this.ormRepository.save(materialPrice);
         } catch (error) {
             throw new Error(error);
         }
