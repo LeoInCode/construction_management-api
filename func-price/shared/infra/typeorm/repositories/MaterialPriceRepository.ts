@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { InternalServerErrorException } from "../../../exception/internalServerError.exception";
 import { IMaterialPrice } from "../../../interfaces/IMaterialPrice.interface";
 import { IMaterialPriceRepository } from "../../../repositories/IMaterialPriceRepository";
 import MaterialPrice from "../entities/MaterialPrice";
@@ -24,7 +25,12 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
             return await this.ormRepository.save(materialPrice);
         } catch (error) {
-            throw new Error(error);
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Prices"
+            );
         }
     }
 }

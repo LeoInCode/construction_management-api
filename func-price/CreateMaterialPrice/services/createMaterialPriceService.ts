@@ -1,3 +1,4 @@
+import { errorMonitor } from "events";
 import { inject, injectable } from "tsyringe";
 import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
 import { IMaterialPrice } from "../../shared/interfaces/IMaterialPrice.interface";
@@ -30,10 +31,18 @@ class CreateMaterialPriceService {
                 data: material
             }
         } catch (error) {
+            if(error.event) {
+                error = error.event;
+            }
             throw {
-                status: 400,
+                status: error.status,
                 data: {
-                    message: error
+                    event: {
+                        code: error.code,
+                        type: error.eventType,
+                        message: error.message,
+                        details: error.detail
+                    }
                 }
             };
         }
