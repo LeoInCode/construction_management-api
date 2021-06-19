@@ -1,4 +1,7 @@
 import { getRepository, Repository } from "typeorm";
+import { GeneralErrorException } from "../../../exception/generalError.exception";
+import { InternalServerErrorException } from "../../../exception/internalServerError.exception";
+import { NotFoundException } from "../../../exception/notFound.exception";
 import { IUser } from "../../../interfaces/IUser.interface";
 import IUserRepository from "../../../repositories/IUserRepository";
 import User from "../entities/User";
@@ -20,12 +23,22 @@ class UserRepository implements IUserRepository {
             });
             
             if(!user) {
-                throw "user not found";
+                throw new NotFoundException(
+                    "400",
+                    "Usuário não encontrado",
+                    "Usuário não encontrado",
+                    "ERROR"
+                )
             }
             
             return user;
         } catch (error) {
-            throw new Error(error);
+            throw new InternalServerErrorException(
+                "400",
+                error.message,
+                "ERROR",
+                "Usuário"
+            );
         }
     }
 
@@ -38,7 +51,13 @@ class UserRepository implements IUserRepository {
             });
             
             if(emailExists) {
-                throw "email already exists";
+                throw new GeneralErrorException(
+                    "400",
+                    "Email já existe",
+                    "Email já existe",
+                    "ERROR",
+                    400
+                );
             }
             
             const user = this.ormRepository.create({
@@ -50,7 +69,12 @@ class UserRepository implements IUserRepository {
             
             return await this.ormRepository.save(user);
         } catch (error) {
-            throw new Error(error);
+            throw new InternalServerErrorException(
+                "400",
+                error.message,
+                "ERROR",
+                "Usuário"
+            );
         }
     }
 
@@ -59,7 +83,12 @@ class UserRepository implements IUserRepository {
             let user = await this.ormRepository.findOne({id: id});
 
             if(!user) {
-                throw "user not found";
+                throw new NotFoundException(
+                    "400",
+                    "Usuário não encontrado",
+                    "Usuário não encontrado",
+                    "ERROR"
+                )
             }
             
             await this.ormRepository.update({id: id}, {
@@ -70,7 +99,12 @@ class UserRepository implements IUserRepository {
 
             return await this.ormRepository.findOne({id: id});
         } catch (error) {
-            throw new Error(error);
+            throw new InternalServerErrorException(
+                "400",
+                error.message,
+                "ERROR",
+                "Usuário"
+            );
         }
     }
 
@@ -79,12 +113,22 @@ class UserRepository implements IUserRepository {
             const user = await this.ormRepository.findOne({id: id});
 
             if(!user) {
-                throw "user not found";
+                throw new NotFoundException(
+                    "400",
+                    "Usuário não encontrado",
+                    "Usuário não encontrado",
+                    "ERROR"
+                )
             }
             
             return user;
         } catch (error) {
-            throw new Error(error);
+            throw new InternalServerErrorException(
+                "400",
+                error.message,
+                "ERROR",
+                "Usuário"
+            );
         }
     }
 }

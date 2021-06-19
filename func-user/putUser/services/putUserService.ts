@@ -50,12 +50,20 @@ class PutUserService {
                 data: userFiltered
             }
         } catch (error) {
-            throw {
-                status: 400,
-                data: {
-                    message: error.message
-                }
+            if(error.event) {
+                error = error.event;
             }
+            throw {
+                status: error.status,
+                data: {
+                    event: {
+                        code: error.code,
+                        type: error.eventType,
+                        message: error.message,
+                        details: error.detail
+                    }
+                }
+            };
         }
     }
 

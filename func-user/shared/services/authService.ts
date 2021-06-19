@@ -1,4 +1,6 @@
 import * as bcrypt from 'bcrypt';
+import { GeneralErrorException } from '../exception/generalError.exception';
+import { MemberNotAuthorizedException } from '../exception/memberNotAuthorized.exception';
 
 class AuthService {
     
@@ -9,7 +11,13 @@ class AuthService {
             const costHash = 14;
             return await bcrypt.hash(password, costHash);
         } catch (error) {
-            throw new Error(error);
+            throw new GeneralErrorException(
+                "400",
+                "Error ao gerar criptografia",
+                "Error ao gerar criptografia",
+                "ERROR",
+                400
+            );
         }
     }
 
@@ -18,7 +26,7 @@ class AuthService {
             const validPassword = await bcrypt.compare(password, passwordHash);
             
             if(!validPassword){
-              throw 'incorrect password';
+                throw new MemberNotAuthorizedException();
             }
         } catch (error) {
             throw new Error(error);

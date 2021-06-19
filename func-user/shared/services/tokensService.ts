@@ -4,6 +4,7 @@ import { IAllowListRefreshTokenCacheRepository } from '../repositories/IAllowLis
 import { IBlockListAccessTokenCacheRepository } from '../repositories/IBlockListAccessTokenRepository';
 import moment = require('moment');
 import User from '../infra/typeorm/entities/User';
+import { GeneralErrorException } from '../exception/generalError.exception';
 
 class TokenService {
 
@@ -35,7 +36,13 @@ class TokenService {
 
         const tokenNaBlocklist = await this.blockListTokenCacheRepository.containsKey(tokenHash);
         if (tokenNaBlocklist) {
-          throw `${name} inválido por logout!`;
+          throw new GeneralErrorException(
+            "400",
+            `${name} inválido por logout!`,
+            `${name} inválido por logout!`,
+            "ERROR",
+            400
+          );
         }
     }
 
@@ -69,13 +76,25 @@ class TokenService {
 
     private verifyTokenValid(user: User, name: string): void {
         if (!user) {
-          throw `${name} inválido!`;
+          throw new GeneralErrorException(
+            "400",
+            `${name} inválido!`,
+            `${name} inválido!`,
+            "ERROR",
+            400
+          );
         }
     }
 
     private verifyTokenSend(token: string, name: string): void {
         if (!token) {
-          throw `${name} não enviado!`;
+          throw new GeneralErrorException(
+            "400",
+            `${name} não enviado!`,
+            `${name} não enviado!`,
+            "ERROR",
+            400
+          );
         }
     }
 

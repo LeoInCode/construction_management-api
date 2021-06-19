@@ -1,4 +1,5 @@
 import { promisify }      from 'util';
+import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
 import { IAllowListRefreshTokenCacheRepository } from '../../../repositories/IAllowListCacheRepository';
 import User from '../../typeorm/entities/User';
 import client             from '../config/connection';
@@ -20,7 +21,12 @@ class AllowListRefreshTokenCacheRepository implements IAllowListRefreshTokenCach
 
       return JSON.parse(result);
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(
+        "400",
+        error.message,
+        "ERROR",
+        "Lista de ativos no Cache"
+      );
     }
   }
 
@@ -31,7 +37,12 @@ class AllowListRefreshTokenCacheRepository implements IAllowListRefreshTokenCach
 
       return result;
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(
+        "400",
+        error.message,
+        "ERROR",
+        "Lista de ativos no Cache"
+      );
     }
   }
 
@@ -41,7 +52,12 @@ class AllowListRefreshTokenCacheRepository implements IAllowListRefreshTokenCach
 
       return result;
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(
+        "400",
+        error.message,
+        "ERROR",
+        "Lista de ativos no Cache"
+      );
     }
   }
 }

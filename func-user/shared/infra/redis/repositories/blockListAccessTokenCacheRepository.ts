@@ -1,4 +1,5 @@
 import { promisify }      from 'util';
+import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
 import { IBlockListAccessTokenCacheRepository } from '../../../repositories/IBlockListAccessTokenRepository';
 import client             from '../config/connection';
 
@@ -21,7 +22,12 @@ class BlockListTokenCacheRepository implements IBlockListAccessTokenCacheReposit
 
       return result;
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(
+        "400",
+        error.message,
+        "ERROR",
+        "Lista de bloqueio no Cache"
+      );
     }
   }
 
@@ -31,7 +37,12 @@ class BlockListTokenCacheRepository implements IBlockListAccessTokenCacheReposit
 
         return result === 1;
       } catch (error) {
-          
+        throw new InternalServerErrorException(
+          "400",
+          error.message,
+          "ERROR",
+          "Lista de bloqueio no Cache"
+        );
       }
   }
 
@@ -42,10 +53,13 @@ class BlockListTokenCacheRepository implements IBlockListAccessTokenCacheReposit
       this.expireAsync(this.prefix + token, dateExpiration);
 
       return result;
-    } catch (error) {
-      console.log(error);
-      
-      throw new Error(error);
+    } catch (error) {      
+      throw new InternalServerErrorException(
+        "400",
+        error.message,
+        "ERROR",
+        "Lista de bloqueio no Cache"
+      );
     }
   }
 
@@ -55,7 +69,12 @@ class BlockListTokenCacheRepository implements IBlockListAccessTokenCacheReposit
 
       return result;
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(
+        "400",
+        error.message,
+        "ERROR",
+        "Lista de bloqueio no Cache"
+      );
     }
   }
 }

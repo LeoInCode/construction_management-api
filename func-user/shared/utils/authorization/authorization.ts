@@ -1,3 +1,4 @@
+import { MemberNotAuthorizedException } from '../../exception/memberNotAuthorized.exception';
 import controle from './accessControl';
 
 const methods = {
@@ -26,7 +27,7 @@ export function authorization (position: string, entity: string, action: string)
     const permissionYourself = permissionPosition[actions.yourself](entity);
     
     if(permissionAll.granted === false && permissionYourself.granted === false) {
-        throw {message: 'this user don’t have authorization'}
+        throw new MemberNotAuthorizedException();
     }
 
     const result = {
