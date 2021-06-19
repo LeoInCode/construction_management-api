@@ -3,4 +3,6 @@ export interface IMaterialPrice {
     displayName: string;
     unitPrice: number;
     quantity: number;
+    creationDate?: Date;
+    lastUpdate?: Date;
 }

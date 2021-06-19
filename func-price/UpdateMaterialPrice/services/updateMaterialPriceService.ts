@@ -1,17 +1,16 @@
-import { errorMonitor } from "events";
+import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
 import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
 import { IMaterialPrice } from "../../shared/interfaces/IMaterialPrice.interface";
-import { IResponseGetUser } from "../../shared/interfaces/IResponseGetUser";
 import { IMaterialPriceRepository } from "../../shared/repositories/IMaterialPriceRepository";
 import HandleContent from "../../shared/services/handleContent";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 
 @injectable()
 class UpdateMaterialPriceService {
-    
+
     private handleContent: HandleContent;
-    
+
     constructor(
         @inject('MaterialPriceRepository')
         private materialPriceRepository: IMaterialPriceRepository,
@@ -20,21 +19,21 @@ class UpdateMaterialPriceService {
     ) { }
 
     public async execute(body: IMaterialPrice, id: string, accessToken: string) {
-        try {            
+        try {
             this.handleContent = new HandleContent(this.getUserEndpoint);
 
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.create);
-            
+            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.update);
+
             await this.materialPriceRepository.updateMaterialPrice(+id, body);
-    
+
             return {
-                status: 201,
+                status: 200,
                 data: {
                     message: "success"
                 }
             }
         } catch (error) {
-            if(error.event) {
+            if (error.event) {
                 error = error.event;
             }
             throw {
