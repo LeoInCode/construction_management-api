@@ -3,7 +3,7 @@ import GetUserEndpoint from '../shared/infra/http/endpoints/GetUserEndpoint';
 import "../shared/infra/typeorm";
 import MaterialPriceRepository from '../shared/infra/typeorm/repositories/MaterialPriceRepository';
 import { IGetUserEndpoint } from '../shared/interfaces/endpoints/IGetUserEndpoint';
-import { IMaterialPriceRepository } from '../shared/repositories/IMaterialPriceRepository';
+import { IMaterialPriceRepository } from '../shared/interfaces/repositories/IMaterialPriceRepository';
 
 container.registerSingleton<IMaterialPriceRepository>(
   'MaterialPriceRepository',

@@ -1,5 +1,5 @@
-import MaterialPrice from "../infra/typeorm/entities/MaterialPrice";
-import { IMaterialPrice } from "../interfaces/IMaterialPrice.interface";
+import MaterialPrice from "../../infra/typeorm/entities/MaterialPrice";
+import { IMaterialPrice } from "../IMaterialPrice.interface";
 
 export interface IMaterialPriceRepository {
     getMaterialPrice(id: number): Promise<MaterialPrice>;

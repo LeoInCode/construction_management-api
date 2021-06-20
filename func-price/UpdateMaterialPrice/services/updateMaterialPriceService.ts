@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
 import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
 import { IMaterialPrice } from "../../shared/interfaces/IMaterialPrice.interface";
-import { IMaterialPriceRepository } from "../../shared/repositories/IMaterialPriceRepository";
+import { IMaterialPriceRepository } from "../../shared/interfaces/repositories/IMaterialPriceRepository";
 import HandleContent from "../../shared/services/handleContent";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 

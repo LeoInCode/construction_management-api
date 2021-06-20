@@ -2,7 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import { InternalServerErrorException } from "../../../exception/internalServerError.exception";
 import { NotFoundException } from "../../../exception/notFound.exception";
 import { IMaterialPrice } from "../../../interfaces/IMaterialPrice.interface";
-import { IMaterialPriceRepository } from "../../../repositories/IMaterialPriceRepository";
+import { IMaterialPriceRepository } from "../../../interfaces/repositories/IMaterialPriceRepository";
 import MaterialPrice from "../entities/MaterialPrice";
 
 class MaterialPriceRepository implements IMaterialPriceRepository {
