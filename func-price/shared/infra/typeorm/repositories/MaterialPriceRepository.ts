@@ -19,8 +19,8 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
          if(!materialPrice) {
             throw new NotFoundException(
                 "400",
-                "Preço do material não encontrado",
-                "Preço do material não encontrado",
+                "Mterial não encontrado",
+                "Material não encontrado",
                 "ERROR"
             );
          }
@@ -95,8 +95,8 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
             if(!materialPrice) {
                 throw new NotFoundException(
                     "400",
-                    "Preço do material não encontrado",
-                    "Preço do material não encontrado",
+                    "Material não encontrado",
+                    "Material não encontrado",
                     "ERROR"
                 );
             }
