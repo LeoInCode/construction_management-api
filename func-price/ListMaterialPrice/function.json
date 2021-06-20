@@ -14,5 +14,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/ListMaterialPrice/index.js"
+  "scriptFile": "../dist/listMaterialPrice/index.js"
 }

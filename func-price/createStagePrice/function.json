@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": [ "post" ],
-      "route": "materialprice"
+      "route": "stageprice"
     },
     {
       "type": "http",
@@ -14,5 +14,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/createMaterialPrice/index.js"
+  "scriptFile": "../dist/createStagePrice/index.js"
 }

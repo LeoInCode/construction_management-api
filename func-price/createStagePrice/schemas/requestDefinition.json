@@ -6,9 +6,7 @@
     "description": "The root schema comprises the entire JSON document.",
     "required": [
         "constructionId",
-        "displayName",
-        "unitPrice",
-        "quantity"
+        "stage"
     ],
     "properties": {
         "constructionId": {
@@ -21,11 +19,11 @@
                 1
             ]
         },
-        "displayName": {
-            "$id": "#/properties/displayName",
+        "stage": {
+            "$id": "#/properties/stage",
             "type": "string",
-            "title": "The displayName Schema",
-            "description": "Nome do material",
+            "title": "The stage Schema",
+            "description": "Nome da etapa",
             "minLength": 2,
             "maxLength": 40,
             "default": "",
@@ -33,22 +31,14 @@
                 "string"
             ]
         },
-        "unitPrice": {
-            "$id": "#/properties/unitPrice",
+        "amount": {
+            "$id": "#/properties/amount",
             "type": "number",
-            "title": "The unitPrice Schema",
-            "description": "Valor unitário do material",
+            "title": "The amount Schema",
+            "description": "Montante",
+            "default": "",
             "examples": [
-                0
-            ]
-        },
-        "quantity": {
-            "$id": "#/properties/quantity",
-            "type": "number",
-            "title": "The quantity Schema",
-            "description": "Quantidade do material",
-            "examples": [
-                0
+                1
             ]
         }
     },
