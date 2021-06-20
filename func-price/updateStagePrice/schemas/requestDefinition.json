@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [],
+    "properties": {
+        "stage": {
+            "$id": "#/properties/stage",
+            "type": "string",
+            "title": "The stage Schema",
+            "description": "Nome da etapa",
+            "minLength": 2,
+            "maxLength": 40,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "amount": {
+            "$id": "#/properties/amount",
+            "type": "number",
+            "title": "The amount Schema",
+            "description": "Montante",
+            "default": "",
+            "examples": [
+                1
+            ]
+        }
+    },
+    "additionalProperties": true
+}
