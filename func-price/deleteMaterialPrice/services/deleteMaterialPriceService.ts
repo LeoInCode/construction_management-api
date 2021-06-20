@@ -1,14 +1,13 @@
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
-import MaterialPrice from "../../shared/infra/typeorm/entities/MaterialPrice";
+import { GeneralErrorException } from "../../shared/exception/generalError.exception";
 import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
-import { IMaterialPrice } from "../../shared/interfaces/IMaterialPrice.interface";
 import { IMaterialPriceRepository } from "../../shared/repositories/IMaterialPriceRepository";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 import HandleContent from "../../shared/services/handleContent";
 
 @injectable()
-class GetMaterialPriceService {
+class DeleteMaterialPriceService {
     
     private handleContent: HandleContent;
 
@@ -23,22 +22,25 @@ class GetMaterialPriceService {
         try {
             this.handleContent = new HandleContent(this.getUserEndpoint);
 
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.read);
+            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.delete);
 
-            const materialPrice: MaterialPrice = await this.materialPriceRepository.getMaterialPrice(+id);
+            const materialPrice = await this.materialPriceRepository.deleteMaterialPrice(+id);
 
-            const materialPriceFiltered: IMaterialPrice = {
-                constructionId: +materialPrice.construction_id,
-                displayName: materialPrice.display_name,
-                unitPrice: +materialPrice.unit_price,
-                quantity: +materialPrice.quantity,
-                creationDate: materialPrice.creation_date,
-                lastUpdate: materialPrice.last_update
-            };
+            if(materialPrice != 1) {
+                throw new GeneralErrorException(
+                    "400",
+                    "Erro ao remover material",
+                    "Erro ao remover material",
+                    "ERROR",
+                    400
+                );
+            }
 
             return {
                 status: 200,
-                data: materialPriceFiltered
+                data: {
+                    message: "success"
+                }
             }
         } catch (error) {
             if (error.event) {
@@ -59,4 +61,4 @@ class GetMaterialPriceService {
     }
 }
 
-export default GetMaterialPriceService;
+export default DeleteMaterialPriceService;

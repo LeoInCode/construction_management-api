@@ -94,6 +94,21 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
             );
         }
     }
+
+    public async deleteMaterialPrice(id: number): Promise<number> {
+        try {
+            const materialPrice = await this.ormRepository.delete({id: id});
+
+            return materialPrice.affected;
+        } catch (error) {
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Prices"
+            );
+        }
+    }
 }
 
 export default MaterialPriceRepository;

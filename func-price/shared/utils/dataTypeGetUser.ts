@@ -3,6 +3,7 @@ export const DataTypeGetUser = {
     action: {
         read: "read",
         create: "create",
-        update: "update"
+        update: "update",
+        delete: "delete"
     }
 }
