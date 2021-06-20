@@ -1,14 +1,15 @@
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
+import StagePrice from "../../shared/infra/typeorm/entities/StagePrice";
 import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
 import { IStagePrice } from "../../shared/interfaces/IStagePrice.interface";
 import { IStagePriceRepository } from "../../shared/interfaces/repositories/IStagePriceRepository";
-import HandleContent from "../../shared/services/handleContent";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
+import HandleContent from "../../shared/services/handleContent";
 
 @injectable()
-class UpdateStagePriceService {
-
+class GetStagePriceService {
+    
     private handleContent: HandleContent;
 
     constructor(
@@ -18,19 +19,26 @@ class UpdateStagePriceService {
         private getUserEndpoint: IGetUserEndpoint
     ) { }
 
-    public async execute(body: IStagePrice, id: string, accessToken: string) {
+    public async execute(id: string, accessToken: string) {
         try {
             this.handleContent = new HandleContent(this.getUserEndpoint);
 
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.update);
+            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.read);
 
-            await this.stagePriceRepository.updateStagePrice(+id, body);
+            const stagePrice: StagePrice = await this.stagePriceRepository.getStagePrice(+id);
+
+            const stagePriceFiltered: IStagePrice = {
+                constructionId: +stagePrice.construction_id,
+                stage: stagePrice.stage,
+                description: stagePrice.description,
+                amount: +stagePrice.amount,
+                creationDate: stagePrice.creation_date,
+                lastUpdate: stagePrice.last_update
+            };
 
             return {
                 status: 200,
-                data: {
-                    message: "success"
-                }
+                data: stagePriceFiltered
             }
         } catch (error) {
             if (error.event) {
@@ -51,4 +59,4 @@ class UpdateStagePriceService {
     }
 }
 
-export default UpdateStagePriceService;
+export default GetStagePriceService;

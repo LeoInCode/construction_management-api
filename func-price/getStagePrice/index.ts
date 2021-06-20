@@ -2,19 +2,11 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { MemberNotAuthenticatedException } from "../shared/exception/memberNotAuthenticatedexception";
-import { RequestValidation } from "../shared/utils/requestValidation";
-import UpdateStagePriceService from './services/updateStagePriceService';
-import * as path from 'path';
+import GetStagePriceService from './services/getStagePriceService';
 import '../container';
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    const responseSchemaValidation = RequestValidation.validate(context, req, path.join(__dirname, './schemas/requestDefinition.json'));
-    if (responseSchemaValidation.status == 400) {
-        context.res = responseSchemaValidation;
-        return;
-    }
-    
     try {
         if(!req.headers['authorization']) {
             throw new MemberNotAuthenticatedException();
@@ -22,8 +14,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             
         let accessToken = req.headers.authorization.split(' ')[1];
 
-        const updateStagePrice = container.resolve(UpdateStagePriceService);
-        const stagePrice = await updateStagePrice.execute(req.body, req.params.id, accessToken);
+        const getStagePrice = container.resolve(GetStagePriceService);
+        const stagePrice = await getStagePrice.execute(req.params.id, accessToken);
         context.res = {
             status: stagePrice.status,
             body: stagePrice.data
