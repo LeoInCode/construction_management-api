@@ -36,6 +36,34 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
         }
     }
 
+    public async listMaterialPrice(constructionId: number): Promise<MaterialPrice[]> {
+        try {
+         const materialPrice = await this.ormRepository.find({
+             where: {
+                 construction_id: constructionId
+             }
+         });
+
+         if(materialPrice?.length == 0) {
+            throw new NotFoundException(
+                "400",
+                "Materiais da contrução não encontrados",
+                "Materiais da contrução não encontrados",
+                "ERROR"
+            );
+         }
+         
+         return materialPrice;
+        } catch (error) {
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Prices"
+            );
+        }
+    }
+
     public async createMaterialPrice(
         { constructionId, displayName, unitPrice, quantity} : IMaterialPrice): Promise<MaterialPrice> {
         try {

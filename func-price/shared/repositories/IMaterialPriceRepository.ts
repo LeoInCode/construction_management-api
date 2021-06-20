@@ -6,4 +6,5 @@ export interface IMaterialPriceRepository {
     createMaterialPrice(materialPrices: IMaterialPrice): Promise<MaterialPrice>;
     updateMaterialPrice(id: number, materialPrices: IMaterialPrice): Promise<MaterialPrice>;
     deleteMaterialPrice(id: number): Promise<number>;
+    listMaterialPrice(constructionId: number): Promise<MaterialPrice[]>;
 }
