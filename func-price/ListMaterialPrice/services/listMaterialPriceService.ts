@@ -29,6 +29,7 @@ class ListMaterialPriceService {
 
             const materialPriceFiltered: IMaterialPrice[] = materialPrice.map((materialPrice: MaterialPrice) => {
                 return {
+                    id: materialPrice.id,
                     constructionId: +materialPrice.construction_id,
                     displayName: materialPrice.display_name,
                     unitPrice: +materialPrice.unit_price,

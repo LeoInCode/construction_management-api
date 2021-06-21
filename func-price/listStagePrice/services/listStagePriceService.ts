@@ -29,6 +29,7 @@ class ListStagePriceService {
 
             const stagePriceFiltered: IStagePrice[] = stagePrice.map((stagePrice: StagePrice) => {
                 return {
+                    id: stagePrice.id,
                     constructionId: +stagePrice.construction_id,
                     stage: stagePrice.stage,
                     description: stagePrice.description,
