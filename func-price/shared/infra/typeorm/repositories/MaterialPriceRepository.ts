@@ -14,18 +14,18 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
     public async getMaterialPrice(id: number): Promise<MaterialPrice> {
         try {
-         const materialPrice = await this.ormRepository.findOne({id: id});
+            const materialPrice = await this.ormRepository.findOne({ id: id });
 
-         if(!materialPrice) {
-            throw new NotFoundException(
-                "400",
-                "Mterial não encontrado",
-                "Material não encontrado",
-                "ERROR"
-            );
-         }
-         
-         return materialPrice;
+            if (!materialPrice) {
+                throw new NotFoundException(
+                    "400",
+                    "Mterial não encontrado",
+                    "Material não encontrado",
+                    "ERROR"
+                );
+            }
+
+            return materialPrice;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -38,22 +38,22 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
     public async listMaterialPrice(constructionId: number): Promise<MaterialPrice[]> {
         try {
-         const materialPrice = await this.ormRepository.find({
-             where: {
-                 construction_id: constructionId
-             }
-         });
+            const materialPrice = await this.ormRepository.find({
+                where: {
+                    construction_id: constructionId
+                }
+            });
 
-         if(materialPrice?.length == 0) {
-            throw new NotFoundException(
-                "400",
-                "Materiais da contrução não encontrados",
-                "Materiais da contrução não encontrados",
-                "ERROR"
-            );
-         }
-         
-         return materialPrice;
+            if (materialPrice?.length == 0) {
+                throw new NotFoundException(
+                    "400",
+                    "Materiais da contrução não encontrados",
+                    "Materiais da contrução não encontrados",
+                    "ERROR"
+                );
+            }
+
+            return materialPrice;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -65,7 +65,7 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
     }
 
     public async createMaterialPrice(
-        { constructionId, displayName, unitPrice, quantity} : IMaterialPrice): Promise<MaterialPrice> {
+        { constructionId, displayName, unitPrice, quantity }: IMaterialPrice): Promise<MaterialPrice> {
         try {
             const materialPrice = this.ormRepository.create({
                 construction_id: constructionId,
@@ -90,9 +90,9 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
     public async updateMaterialPrice(id: number,
         { displayName, quantity, unitPrice }: IMaterialPrice): Promise<any> {
         try {
-            const materialPrice = await this.ormRepository.findOne({id: id});
+            const materialPrice = await this.ormRepository.findOne({ id: id });
 
-            if(!materialPrice) {
+            if (!materialPrice) {
                 throw new NotFoundException(
                     "400",
                     "Material não encontrado",
@@ -101,15 +101,9 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
                 );
             }
 
-            if(displayName){
-                materialPrice.display_name = displayName;
-            }
-            if(quantity){
-                materialPrice.quantity = quantity;
-            }
-            if(unitPrice){
-                materialPrice.unit_price = unitPrice;
-            }
+            materialPrice.display_name = displayName;
+            materialPrice.quantity = quantity;
+            materialPrice.unit_price = unitPrice;
             materialPrice.last_update = new Date();
 
             return await this.ormRepository.save(materialPrice);
@@ -125,7 +119,7 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
     public async deleteMaterialPrice(id: number): Promise<number> {
         try {
-            const materialPrice = await this.ormRepository.delete({id: id});
+            const materialPrice = await this.ormRepository.delete({ id: id });
 
             return materialPrice.affected;
         } catch (error) {

@@ -14,18 +14,18 @@ class StagePriceRepository implements IStagePriceRepository {
 
     public async getStagePrice(id: number): Promise<StagePrice> {
         try {
-         const stagePrice = await this.ormRepository.findOne({id: id});
+            const stagePrice = await this.ormRepository.findOne({ id: id });
 
-         if(!StagePrice) {
-            throw new NotFoundException(
-                "400",
-                "Stage não encontrado",
-                "Stage não encontrado",
-                "ERROR"
-            );
-         }
-         
-         return stagePrice;
+            if (!StagePrice) {
+                throw new NotFoundException(
+                    "400",
+                    "Stage não encontrado",
+                    "Stage não encontrado",
+                    "ERROR"
+                );
+            }
+
+            return stagePrice;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -38,22 +38,22 @@ class StagePriceRepository implements IStagePriceRepository {
 
     public async listStagePrice(constructionId: number): Promise<StagePrice[]> {
         try {
-         const stagePrice = await this.ormRepository.find({
-             where: {
-                 construction_id: constructionId
-             }
-         });
+            const stagePrice = await this.ormRepository.find({
+                where: {
+                    construction_id: constructionId
+                }
+            });
 
-         if(stagePrice?.length == 0) {
-            throw new NotFoundException(
-                "400",
-                "Stage da contrução não encontrados",
-                "Stage da contrução não encontrados",
-                "ERROR"
-            );
-         }
-         
-         return stagePrice;
+            if (stagePrice?.length == 0) {
+                throw new NotFoundException(
+                    "400",
+                    "Stage da contrução não encontrados",
+                    "Stage da contrução não encontrados",
+                    "ERROR"
+                );
+            }
+
+            return stagePrice;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -65,7 +65,7 @@ class StagePriceRepository implements IStagePriceRepository {
     }
 
     public async createStagePrice(
-        { constructionId, stage, description, amount } : IStagePrice): Promise<StagePrice> {
+        { constructionId, stage, description, amount }: IStagePrice): Promise<StagePrice> {
         try {
             const stagePrice = this.ormRepository.create({
                 construction_id: constructionId,
@@ -90,9 +90,9 @@ class StagePriceRepository implements IStagePriceRepository {
     public async updateStagePrice(id: number,
         { stage, description, amount }: IStagePrice): Promise<any> {
         try {
-            const stagePrice = await this.ormRepository.findOne({id: id});
+            const stagePrice = await this.ormRepository.findOne({ id: id });
 
-            if(!stagePrice) {
+            if (!stagePrice) {
                 throw new NotFoundException(
                     "400",
                     "Stage não encontrado",
@@ -101,15 +101,9 @@ class StagePriceRepository implements IStagePriceRepository {
                 );
             }
 
-            if(stage){
-                stagePrice.stage = stage;
-            }
-            if(description){
-                stagePrice.description = description;
-            }
-            if(amount){
-                stagePrice.amount = amount;
-            }
+            stagePrice.stage = stage;
+            stagePrice.description = description;
+            stagePrice.amount = amount;
             stagePrice.last_update = new Date();
 
             return await this.ormRepository.save(stagePrice);
@@ -125,7 +119,7 @@ class StagePriceRepository implements IStagePriceRepository {
 
     public async deleteStagePrice(id: number): Promise<number> {
         try {
-            const stagePrice = await this.ormRepository.delete({id: id});
+            const stagePrice = await this.ormRepository.delete({ id: id });
 
             return stagePrice.affected;
         } catch (error) {
