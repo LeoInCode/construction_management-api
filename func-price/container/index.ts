@@ -6,6 +6,8 @@ import StagePriceRepository from '../shared/infra/typeorm/repositories/StagePric
 import { IGetUserEndpoint } from '../shared/interfaces/endpoints/IGetUserEndpoint';
 import { IMaterialPriceRepository } from '../shared/interfaces/repositories/IMaterialPriceRepository';
 import { IStagePriceRepository } from '../shared/interfaces/repositories/IStagePriceRepository';
+import { IManpowerPriceRepository } from '../shared/interfaces/repositories/IManpowerPriceRepository';
+import ManpowerPriceRepository from '../shared/infra/typeorm/repositories/ManpowerPriceRepository';
 
 container.registerSingleton<IMaterialPriceRepository>(
   'MaterialPriceRepository',
@@ -15,6 +17,11 @@ container.registerSingleton<IMaterialPriceRepository>(
 container.registerSingleton<IStagePriceRepository>(
   'StagePriceRepository',
   StagePriceRepository
+);
+
+container.registerSingleton<IManpowerPriceRepository>(
+  'ManpowerPriceRepository',
+  ManpowerPriceRepository
 );
 
 container.registerSingleton<IGetUserEndpoint>(

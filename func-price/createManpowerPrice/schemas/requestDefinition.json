@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "constructionId",
+        "occupation",
+        "service",
+        "amount"
+    ],
+    "properties": {
+        "constructionId": {
+            "$id": "#/properties/constructionId",
+            "type": "number",
+            "title": "The constructionId Schema",
+            "description": "Id da construção",
+            "default": "",
+            "examples": [
+                1
+            ]
+        },
+        "displayName": {
+            "$id": "#/properties/occupation",
+            "type": "string",
+            "title": "The occupation Schema",
+            "description": "Nome da mão de obra",
+            "minLength": 2,
+            "maxLength": 40,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "service": {
+            "$id": "#/properties/service",
+            "type": "string",
+            "title": "The service Schema",
+            "description": "Serviço prestado",
+            "examples": [
+                "string"
+            ]
+        },
+        "amount": {
+            "$id": "#/properties/amount",
+            "type": "number",
+            "title": "The amount Schema",
+            "description": "Montante da mão de obra",
+            "examples": [
+                0
+            ]
+        }
+    },
+    "additionalProperties": true
+}
