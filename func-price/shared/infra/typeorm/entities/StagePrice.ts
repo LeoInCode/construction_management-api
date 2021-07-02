@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('stage_price')
 class StagePrice {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @PrimaryColumn()
+    @Column()
     construction_id: number;
 
     @Column()
@@ -17,10 +17,10 @@ class StagePrice {
     @Column(​​​​​​​​{​​​​​​​​ nullable: false, type: 'decimal', precision: 12, scale: 4 })
     amount: number;
 
-    @Column({type: "timestamp"})
+    @CreateDateColumn({type: "timestamp"})
     creation_date: Date;
 
-    @Column({type: "timestamp"})
+    @UpdateDateColumn({type: "timestamp"})
     last_update: Date;
 }
 
