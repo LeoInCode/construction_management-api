@@ -4,12 +4,7 @@
     "type": "object",
     "title": "The Root Schema",
     "description": "The root schema comprises the entire JSON document.",
-    "required": [
-        "constructionId",
-        "occupation",
-        "service",
-        "amount"
-    ],
+    "required": [],
     "properties": {
         "constructionId": {
             "$id": "#/properties/constructionId",
