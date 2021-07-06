@@ -1,14 +1,15 @@
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
-import { GeneralErrorException } from "../../shared/exception/generalError.exception";
+import ManpowerPrice from "../../shared/infra/typeorm/entities/ManpowerPrice";
 import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
+import { IManpowerPrice } from "../../shared/interfaces/IManpowerPrice.interface";
 import { IManpowerPriceRepository } from "../../shared/interfaces/repositories/IManpowerPriceRepository";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 import HandleContent from "../../shared/services/handleContent";
 
 @injectable()
-class DeleteManpowerPriceService {
-
+class GetManpowerPriceService {
+    
     private handleContent: HandleContent;
 
     constructor(
@@ -22,25 +23,22 @@ class DeleteManpowerPriceService {
         try {
             this.handleContent = new HandleContent(this.getUserEndpoint);
 
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.delete);
+            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.read);
 
-            const manpowerPrice = await this.manpowerPriceRepository.deleteManpowerPrice(+id);
+            const manpowerPrice: ManpowerPrice = await this.manpowerPriceRepository.getManpowerPrice(+id);
 
-            if (manpowerPrice != 1) {
-                throw new GeneralErrorException(
-                    "400",
-                    "Erro ao remover Manpower",
-                    "Erro ao remover Manpower",
-                    "ERROR",
-                    400
-                );
-            }
+            const manpowerPriceFiltered: IManpowerPrice = {
+                constructionId: +manpowerPrice.construction_id,
+                occupation: manpowerPrice.occupation,
+                service: manpowerPrice.service,
+                amount: +manpowerPrice.amount,
+                creationDate: manpowerPrice.creation_date,
+                lastUpdate: manpowerPrice.last_update
+            };
 
             return {
                 status: 200,
-                data: {
-                    message: "success"
-                }
+                data: manpowerPriceFiltered
             }
         } catch (error) {
             if (error.event) {
@@ -61,4 +59,4 @@ class DeleteManpowerPriceService {
     }
 }
 
-export default DeleteManpowerPriceService;
+export default GetManpowerPriceService;
