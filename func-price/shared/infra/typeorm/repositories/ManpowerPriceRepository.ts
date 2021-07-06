@@ -14,18 +14,18 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
 
     public async getManpowerPrice(id: number): Promise<ManpowerPrice> {
         try {
-            const ManpowerPrice = await this.ormRepository.findOne({ id: id });
+            const manpowerPrice = await this.ormRepository.findOne({ id: id });
 
             if (!ManpowerPrice) {
                 throw new NotFoundException(
                     "400",
-                    "Mterial não encontrado",
+                    "Manpower não encontrado",
                     "Manpower não encontrado",
                     "ERROR"
                 );
             }
 
-            return ManpowerPrice;
+            return manpowerPrice;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -38,22 +38,22 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
 
     public async listManpowerPrice(constructionId: number): Promise<ManpowerPrice[]> {
         try {
-            const ManpowerPrice = await this.ormRepository.find({
+            const manpowerPrice = await this.ormRepository.find({
                 where: {
                     construction_id: constructionId
                 }
             });
 
-            if (ManpowerPrice?.length == 0) {
+            if (manpowerPrice?.length == 0) {
                 throw new NotFoundException(
                     "400",
-                    "Materiais da contrução não encontrados",
-                    "Materiais da contrução não encontrados",
+                    "Manpower da contrução não encontrados",
+                    "Manpower da contrução não encontrados",
                     "ERROR"
                 );
             }
 
-            return ManpowerPrice;
+            return manpowerPrice;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -67,7 +67,7 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
     public async createManpowerPrice(
         { constructionId, occupation, service, amount }: IManpowerPrice): Promise<ManpowerPrice> {
         try {
-            const ManpowerPrice = this.ormRepository.create({
+            const manpowerPrice = this.ormRepository.create({
                 construction_id: constructionId,
                 occupation: occupation,
                 service: service,
@@ -76,7 +76,7 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
                 last_update: new Date()
             });
 
-            return await this.ormRepository.save(ManpowerPrice);
+            return await this.ormRepository.save(manpowerPrice);
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -90,9 +90,9 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
     public async updateManpowerPrice(id: number,
         { occupation, service, amount }: IManpowerPrice): Promise<any> {
         try {
-            const ManpowerPrice = await this.ormRepository.findOne({ id: id });
+            const manpowerPrice = await this.ormRepository.findOne({ id: id });
 
-            if (!ManpowerPrice) {
+            if (!manpowerPrice) {
                 throw new NotFoundException(
                     "400",
                     "Manpower não encontrado",
@@ -101,12 +101,12 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
                 );
             }
 
-            ManpowerPrice.occupation = occupation;
-            ManpowerPrice.service = service;
-            ManpowerPrice.amount = amount;
-            ManpowerPrice.last_update = new Date();
+            manpowerPrice.occupation = occupation;
+            manpowerPrice.service = service;
+            manpowerPrice.amount = amount;
+            manpowerPrice.last_update = new Date();
 
-            return await this.ormRepository.save(ManpowerPrice);
+            return await this.ormRepository.save(manpowerPrice);
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
@@ -119,9 +119,9 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
 
     public async deleteManpowerPrice(id: number): Promise<number> {
         try {
-            const ManpowerPrice = await this.ormRepository.delete({ id: id });
+            const manpowerPrice = await this.ormRepository.delete({ id: id });
 
-            return ManpowerPrice.affected;
+            return manpowerPrice.affected;
         } catch (error) {
             throw new InternalServerErrorException(
                 "500",
