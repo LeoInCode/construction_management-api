@@ -27,6 +27,9 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
 
             return manpowerPrice;
         } catch (error) {
+            if(error.code == "400"){
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,
@@ -55,6 +58,9 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
 
             return manpowerPrice;
         } catch (error) {
+            if(error.code == "400"){
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,
@@ -108,6 +114,9 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
 
             return await this.ormRepository.save(manpowerPrice);
         } catch (error) {
+            if(error.code == "400"){
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,

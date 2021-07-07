@@ -19,7 +19,7 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
             if (!materialPrice) {
                 throw new NotFoundException(
                     "400",
-                    "Mterial não encontrado",
+                    "Material não encontrado",
                     "Material não encontrado",
                     "ERROR"
                 );
@@ -27,6 +27,9 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
             return materialPrice;
         } catch (error) {
+            if(error.code == "400"){
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,
@@ -55,6 +58,9 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
             return materialPrice;
         } catch (error) {
+            if(error.code == "400"){
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,
@@ -108,6 +114,9 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
 
             return await this.ormRepository.save(materialPrice);
         } catch (error) {
+            if(error.code == "400"){
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,
