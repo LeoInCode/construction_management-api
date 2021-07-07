@@ -8,6 +8,8 @@ import { IMaterialPriceRepository } from '../shared/interfaces/repositories/IMat
 import { IStagePriceRepository } from '../shared/interfaces/repositories/IStagePriceRepository';
 import { IManpowerPriceRepository } from '../shared/interfaces/repositories/IManpowerPriceRepository';
 import ManpowerPriceRepository from '../shared/infra/typeorm/repositories/ManpowerPriceRepository';
+import { IHandleContent } from '../shared/interfaces/services/IHandleContent';
+import HandleContent from '../shared/services/handleContent';
 
 container.registerSingleton<IMaterialPriceRepository>(
   'MaterialPriceRepository',
@@ -27,4 +29,9 @@ container.registerSingleton<IManpowerPriceRepository>(
 container.registerSingleton<IGetUserEndpoint>(
   'GetUserEndpoint',
   GetUserEndpoint
+);
+
+container.registerSingleton<IHandleContent>(
+  'HandleContent',
+  HandleContent
 );

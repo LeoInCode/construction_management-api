@@ -1,28 +1,23 @@
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
-import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
 import { IStagePrice } from "../../shared/interfaces/IStagePrice.interface";
 import { IStagePriceRepository } from "../../shared/interfaces/repositories/IStagePriceRepository";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 import StagePrice from "../../shared/infra/typeorm/entities/StagePrice";
-import HandleContent from "../../shared/services/handleContent";
+import { IHandleContent } from "../../shared/interfaces/services/IHandleContent";
 
 @injectable()
 class ListStagePriceService {
     
-    private handleContent: HandleContent;
-
     constructor(
         @inject('StagePriceRepository')
         private stagePriceRepository: IStagePriceRepository,
-        @inject('GetUserEndpoint')
-        private getUserEndpoint: IGetUserEndpoint
+        @inject('HandleContent')
+        private handleContent: IHandleContent,
     ) { }
 
     public async execute(constructionId: string, accessToken: string) {
         try {
-            this.handleContent = new HandleContent(this.getUserEndpoint);
-
             await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.read);
 
             const stagePrice: StagePrice[] = await this.stagePriceRepository.listStagePrice(+constructionId);

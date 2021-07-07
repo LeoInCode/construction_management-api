@@ -1,27 +1,22 @@
 import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
 import { GeneralErrorException } from "../../shared/exception/generalError.exception";
-import { IGetUserEndpoint } from "../../shared/interfaces/endpoints/IGetUserEndpoint";
 import { IStagePriceRepository } from "../../shared/interfaces/repositories/IStagePriceRepository";
 import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
-import HandleContent from "../../shared/services/handleContent";
+import { IHandleContent } from "../../shared/interfaces/services/IHandleContent";
 
 @injectable()
 class DeleteStagePriceService {
     
-    private handleContent: HandleContent;
-
     constructor(
         @inject('StagePriceRepository')
         private stagePriceRepository: IStagePriceRepository,
-        @inject('GetUserEndpoint')
-        private getUserEndpoint: IGetUserEndpoint
+        @inject('HandleContent')
+        private handleContent: IHandleContent,
     ) { }
 
     public async execute(id: string, accessToken: string) {
         try {
-            this.handleContent = new HandleContent(this.getUserEndpoint);
-
             await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.delete);
 
             const stagePrice = await this.stagePriceRepository.deleteStagePrice(+id);
