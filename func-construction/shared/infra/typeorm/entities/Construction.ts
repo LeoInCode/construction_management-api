@@ -1,12 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import User from "./User";
 
 @Entity('construction_config')
 class Construction {
     @PrimaryGeneratedColumn('increment')
     id: number;
-
-    @Column()
-    user_id: number;
 
     @Column()
     responsible: string;  
@@ -25,6 +23,12 @@ class Construction {
 
     @UpdateDateColumn({type: "timestamp"})
     last_update: Date;
+
+    @JoinColumn({
+        name: "user_id", referencedColumnName: "id"
+    })
+    @ManyToOne(()=> User, (user) => user.construction_items)
+    user_id: User;
 }
 
 export default Construction;
