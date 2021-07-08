@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
 export class CreateTableConstruction1625697233818 implements MigrationInterface {
 
@@ -16,7 +16,7 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                     },
                     {
                         name: 'user_id',
-                        type: 'numeric',
+                        type: 'integer',
                         isNullable: false
                     },
                     {
@@ -52,9 +52,20 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                 ]
             })
         )
+
+        await queryRunner.createForeignKey(
+            'construction_config',
+            new TableForeignKey({
+                name: 'construction_config_FK_user_config',
+                columnNames: ['user_id'],
+                referencedTableName: 'user_config',
+                referencedColumnNames: ['id']
+            })
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropForeignKey('construction_config', 'construction_config_FK_user_config');
         await queryRunner.dropTable('construction_config');
     }
 
