@@ -33,8 +33,11 @@ class UserRepository implements IUserRepository {
             
             return user;
         } catch (error) {
+            if(error.code == "400") {
+                throw error;
+            }
             throw new InternalServerErrorException(
-                "400",
+                "500",
                 error.message,
                 "ERROR",
                 "Usuário"
@@ -69,8 +72,11 @@ class UserRepository implements IUserRepository {
             
             return await this.ormRepository.save(user);
         } catch (error) {
+            if(error.code == "400") {
+                throw error;
+            }
             throw new InternalServerErrorException(
-                "400",
+                "500",
                 error.message,
                 "ERROR",
                 "Usuário"
@@ -99,8 +105,11 @@ class UserRepository implements IUserRepository {
 
             return await this.ormRepository.findOne({id: id});
         } catch (error) {
+            if(error.code == "400") {
+                throw error;
+            }
             throw new InternalServerErrorException(
-                "400",
+                "500",
                 error.message,
                 "ERROR",
                 "Usuário"
@@ -123,8 +132,11 @@ class UserRepository implements IUserRepository {
             
             return user;
         } catch (error) {
+            if(error.code == "400") {
+                throw error;
+            }
             throw new InternalServerErrorException(
-                "400",
+                "500",
                 error.message,
                 "ERROR",
                 "Usuário"
