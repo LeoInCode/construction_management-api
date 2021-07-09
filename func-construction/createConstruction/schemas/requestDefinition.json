@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "userId",
+        "responsible",
+        "client",
+        "displayName"
+    ],
+    "properties": {
+        "userId": {
+            "$id": "#/properties/userId",
+            "type": "number",
+            "title": "The userId Schema",
+            "description": "Id do usuário",
+            "default": "",
+            "examples": [
+                1
+            ]
+        },
+        "responsible": {
+            "$id": "#/properties/responsible",
+            "type": "string",
+            "title": "The responsible Schema",
+            "description": "Reponsável",
+            "minLength": 2,
+            "maxLength": 50,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "client": {
+            "$id": "#/properties/client",
+            "type": "string",
+            "title": "The client Schema",
+            "description": "Cliente",
+            "minLength": 2,
+            "maxLength": 50,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "type": {
+            "$id": "#/properties/type",
+            "type": "string",
+            "title": "The type Schema",
+            "description": "Tipo de obra",
+            "default": "",
+            "maxLength": 30,
+            "examples": [
+                "string"
+            ]
+        },
+        "displayName": {
+            "$id": "#/properties/displayName",
+            "type": "string",
+            "title": "The displayName Schema",
+            "description": "Nome da obra",
+            "minLength": 5,
+            "maxLength": 50,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        }
+    },
+    "additionalProperties": true
+}

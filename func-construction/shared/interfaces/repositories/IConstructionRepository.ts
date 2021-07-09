@@ -1,3 +1,5 @@
+import { IRequestConstruction } from "../../../createConstruction/interfaces/IRequestConstruction.interface";
+
 export interface IConstructionRepository {
-    createConstruction(): Promise<any>;
+    createConstruction(construction: IRequestConstruction): Promise<any>;
 }
