@@ -15,14 +15,14 @@ class UserRepository implements IUserRepository {
     public async getUser(id: number): Promise<User> {
         try {
             const user = await this.ormRepository.findOne({id: id});
-
+            
             if(!user) {
                 throw new NotFoundException(
                     "400",
                     "Usuário não encontrado",
                     "Usuário não encontrado",
                     "ERROR"
-                )
+                );
             }
             
             return user;

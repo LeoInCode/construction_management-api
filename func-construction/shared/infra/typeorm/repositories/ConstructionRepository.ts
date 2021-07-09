@@ -22,7 +22,7 @@ class ConstructionRepository implements IConstructionRepository {
     public async createConstruction(
         { userId, client, responsible, type, displayName }: IRequestConstruction): Promise<Construction> {
         try {
-            const user = await this.userRepository.getUser(userId);
+            const user = await this.userRepository.getUser(userId);            
 
             const construction = this.ormRepository.create({
                 user_id: user,
@@ -34,6 +34,9 @@ class ConstructionRepository implements IConstructionRepository {
 
             return await this.ormRepository.save(construction);
         } catch (error) {
+            if(error.code) {
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,

@@ -12,7 +12,7 @@ class CreateConstructionService {
     ) { }
 
     public async execute(payload: IRequestConstruction) {
-        try {
+        try {            
             await this.constructionRepository.createConstruction(payload);
 
             return {
