@@ -16,8 +16,7 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                     },
                     {
                         name: 'user_id',
-                        type: 'integer',
-                        isNullable: false
+                        type: 'integer'
                     },
                     {
                         name: 'responsible',

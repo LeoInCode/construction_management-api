@@ -12,7 +12,8 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                         type: 'integer',
                         isPrimary: true,
                         isGenerated: true,
-                        generationStrategy: 'increment' 
+                        generationStrategy: 'increment',
+                        isUnique: true
                     },
                     {
                         name: 'complete_name',
