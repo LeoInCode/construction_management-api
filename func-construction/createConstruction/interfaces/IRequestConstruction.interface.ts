@@ -4,4 +4,5 @@ export interface IRequestConstruction {
     client: string;
     type: string;
     displayName: string;
+    refreshToken: string;
 }

@@ -5,6 +5,7 @@ import { RequestValidation } from "../shared/utils/requestValidation";
 import CreateConstructionService from './services/createConstructionService';
 import * as path from 'path';
 import '../container';
+import { MemberNotAuthenticatedException } from '../shared/exception/memberNotAuthenticatedexception';
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
@@ -14,9 +15,15 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return;
     }
     
-    try {            
+    try {      
+        if(!req.headers['authorization']) {
+            throw new MemberNotAuthenticatedException();
+        }
+
+        let accessToken = req.headers.authorization.split(' ')[1];
+
         const construction = container.resolve(CreateConstructionService);
-        const createConstruction = await construction.execute(req.body);
+        const createConstruction = await construction.execute(accessToken, req.body);
         context.res = {
             status: createConstruction.status,
             body: createConstruction.data
