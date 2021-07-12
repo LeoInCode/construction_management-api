@@ -15,7 +15,7 @@ class CreateConstructionService {
     ) { }
 
     public async execute(token: string, payload: IRequestConstruction) {
-        try {            
+        try {
             await this.constructionRepository.createConstruction(payload);
             
             const {
@@ -24,7 +24,8 @@ class CreateConstructionService {
                 email,
                 position,
                 accessToken,
-                refreshToken} = await this.handleContent.updateUser(token, payload.refreshToken);
+                refreshToken } = await this.handleContent.updateUser(token, payload.refreshToken);
+                
             return {
                 status: 200,
                 data: {
