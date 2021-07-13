@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import Stage from "./Stage";
 import User from "./User";
 
 @Entity('construction_config')
@@ -32,6 +33,9 @@ class Construction {
     })
     @ManyToOne(()=> User, (user) => user.construction_items)
     user_id: User;
+
+    @OneToMany(() => Stage, stage => stage.construction_id)
+    stage_items: Stage[];
 }
 
 export default Construction;
