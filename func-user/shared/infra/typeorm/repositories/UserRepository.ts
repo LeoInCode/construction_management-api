@@ -47,22 +47,6 @@ class UserRepository implements IUserRepository {
 
     public async createUser({ completeName, email, password }: IUser, passwordHash: string): Promise<User> {
         try {
-            const emailExists = await this.ormRepository.findOne({
-                where: {
-                    email: email
-                }
-            });
-            
-            if(emailExists) {
-                throw new GeneralErrorException(
-                    "400",
-                    "Email já existe",
-                    "Email já existe",
-                    "ERROR",
-                    400
-                );
-            }
-            
             const user = this.ormRepository.create({
                 complete_name: completeName,
                 email: email,
@@ -72,12 +56,9 @@ class UserRepository implements IUserRepository {
             
             return await this.ormRepository.save(user);
         } catch (error) {
-            if(error.code == "400") {
-                throw error;
-            }
             throw new InternalServerErrorException(
-                "500",
-                error.message,
+                "400",
+                "Email já existe",
                 "ERROR",
                 "Usuário"
             );

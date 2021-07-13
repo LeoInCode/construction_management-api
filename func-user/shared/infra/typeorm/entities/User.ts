@@ -8,7 +8,7 @@ class User {
     @Column()
     complete_name: string;
 
-    @PrimaryColumn()
+    @Column()
     email: string;
 
     @Column()
