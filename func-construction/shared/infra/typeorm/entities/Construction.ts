@@ -15,6 +15,9 @@ class Construction {
     @Column(​​​​​​​​)
     type: string;
 
+    @Column()
+    user_permissions: string;
+
     @Column(​​​​​​​​)
     display_name: string;
 
