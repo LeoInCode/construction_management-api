@@ -36,7 +36,7 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                     {
                         name: 'user_permissions',
                         type: 'text',
-                        isNullable: false
+                        default: null
                     },
                     {
                         name: 'display_name',
