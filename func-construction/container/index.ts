@@ -10,6 +10,8 @@ import { IUserEndpoint } from '../shared/interfaces/endpoints/IGetUserEndpoint';
 import UserEndpoint from '../shared/infra/http/endpoints/GetUserEndpoint';
 import { IHandleContent } from '../shared/interfaces/services/IHandleContent';
 import HandleContent from '../shared/services/handleContent';
+import { IStageRepository } from '../shared/interfaces/repositories/IStageRepository';
+import StageRepository from '../shared/infra/typeorm/repositories/StageRepository';
 
 container.registerSingleton<IConstructionRepository>(
   'ConstructionRepository',
@@ -19,6 +21,11 @@ container.registerSingleton<IConstructionRepository>(
 container.registerSingleton<IUserRepository>(
   'UserRepository',
   UserRepository,
+);
+
+container.registerSingleton<IStageRepository>(
+  'StageRepository',
+  StageRepository
 );
 
 container.registerSingleton<IUserEndpoint>(

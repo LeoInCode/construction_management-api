@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { IConstructionRepository } from "../../shared/interfaces/repositories/IConstructionRepository";
 import { IHandleContent } from '../../shared/interfaces/services/IHandleContent';
 import { IRequestConstruction } from "../interfaces/IRequestConstruction.interface";
-
+import '../../container';
 @injectable()
 class CreateConstructionService {
 

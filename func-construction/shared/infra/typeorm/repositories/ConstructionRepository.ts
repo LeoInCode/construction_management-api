@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
 import { IRequestConstruction } from '../../../../createConstruction/interfaces/IRequestConstruction.interface';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
+import { NotFoundException } from '../../../exception/notFound.exception';
 import IUserRepository from '../../../interfaces/repositories/IUserRepository';
 import Construction from '../entities/Construction';
 import { IConstructionRepository } from './../../../interfaces/repositories/IConstructionRepository';
@@ -29,10 +30,38 @@ class ConstructionRepository implements IConstructionRepository {
                 client: client,
                 responsible: responsible,
                 type: type,
-                display_name: displayName
+                display_name: displayName,
+                user_permissions: ''
             });
 
             return await this.ormRepository.save(construction);
+        } catch (error) {
+            if(error.code) {
+                throw error;
+            }
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Construction"
+            );
+        }
+    }
+
+    public async getConstruction(constructionId: number): Promise<Construction> {
+        try {
+            const construction = await this.ormRepository.findOne({id: constructionId});
+
+            if(!construction) {
+                throw new NotFoundException(
+                    "400",
+                    "Construção não encontrada",
+                    "Construção não encontrada",
+                    "ERROR"
+                );
+            }
+
+            return construction;
         } catch (error) {
             if(error.code) {
                 throw error;

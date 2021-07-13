@@ -1,4 +1,5 @@
+import Stage from "../../infra/typeorm/entities/Stage";
 
 export interface IStageRepository {
-    createStage(): Promise<any>;
+    createStage(stageName: string, constructionId: number): Promise<Stage>;
 }
