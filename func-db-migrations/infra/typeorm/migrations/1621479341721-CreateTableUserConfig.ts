@@ -23,7 +23,7 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                     {
                         name: 'email',
                         type: 'varchar',
-                        isPrimary: true,
+                        isUnique: true,
                         isNullable: false
                     },
                     {
