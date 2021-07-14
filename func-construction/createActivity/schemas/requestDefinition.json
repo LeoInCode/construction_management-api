@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "constructionId",
+        "stageId",
+        "activityName"
+    ],
+    "properties": {
+        "constructionId": {
+            "$id": "#/properties/constructionId",
+            "type": "number",
+            "title": "The constructionId Schema",
+            "description": "ID da construção",
+            "default": "",
+            "examples": [
+                0
+            ]
+        },
+        "stageId": {
+            "$id": "#/properties/stageId",
+            "type": "number",
+            "title": "The stageId Schema",
+            "description": "Stage",
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "activityName": {
+            "$id": "#/properties/activityName",
+            "type": "string",
+            "title": "The activityName Schema",
+            "description": "Nome da atividade",
+            "minLength": 2,
+            "maxLength": 50,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        }
+    },
+    "additionalProperties": true
+}

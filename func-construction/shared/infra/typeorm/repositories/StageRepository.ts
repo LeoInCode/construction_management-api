@@ -41,6 +41,27 @@ class StageRepository implements IStageRepository {
             );
         }
     }
+
+    public async getStage(id: number, construction: Construction) {
+        try {
+            const stage = await this.ormRepository.findOne({
+                id: id,
+                construction_id: construction
+            });
+    
+            return stage;
+        } catch (error) {
+            if(error.code) {
+                throw error;
+            }
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Stage"
+            );
+        }
+    }
     
 }
 

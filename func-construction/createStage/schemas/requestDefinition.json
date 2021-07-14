@@ -14,6 +14,8 @@
             "type": "string",
             "title": "The stageName Schema",
             "description": "Nome da etapa",
+            "minLength": 3,
+            "maxLength": 50,
             "default": "",
             "examples": [
                 "string"

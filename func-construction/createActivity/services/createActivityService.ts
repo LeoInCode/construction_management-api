@@ -1,26 +1,28 @@
-import 'reflect-metadata';
 import { inject, injectable } from "tsyringe";
-import { IStageRepository } from "../../shared/interfaces/repositories/IStageRepository";
+import { IActivityRepository } from "../../shared/interfaces/repositories/IActivityRepository";
+import { IRequestActivity } from "../interfaces/IRequestActivity.interface";
 
 @injectable()
-class CreateStageService {
+class CreateActivityService {
 
     constructor(
-        @inject('StageRepository')
-        private stageRepository: IStageRepository
-    ) { }
+        @inject('ActivityRepository')
+        private activityRepository: IActivityRepository) {}
 
-    public async execute(stageName: string, constructionId: number) {
+    public async execute(payload: IRequestActivity) {
         try {
-            await this.stageRepository.createStage(stageName, constructionId);
+            await this.activityRepository.createActivity(payload);
     
             return {
                 status: 200,
                 data: {
-                    message: "success"
+                    message: "success" 
                 }
             }
         } catch (error) {
+            if (error.event) {
+                error = error.event;
+            }
             throw {
                 status: error.status,
                 data: {
@@ -36,4 +38,4 @@ class CreateStageService {
     }
 }
 
-export default CreateStageService;
+export default CreateActivityService;

@@ -12,6 +12,8 @@ import { IHandleContent } from '../shared/interfaces/services/IHandleContent';
 import HandleContent from '../shared/services/handleContent';
 import { IStageRepository } from '../shared/interfaces/repositories/IStageRepository';
 import StageRepository from '../shared/infra/typeorm/repositories/StageRepository';
+import { IActivityRepository } from '../shared/interfaces/repositories/IActivityRepository';
+import ActivityRepository from '../shared/infra/typeorm/repositories/ActivityRepository';
 
 container.registerSingleton<IConstructionRepository>(
   'ConstructionRepository',
@@ -21,6 +23,11 @@ container.registerSingleton<IConstructionRepository>(
 container.registerSingleton<IUserRepository>(
   'UserRepository',
   UserRepository,
+);
+
+container.registerSingleton<IActivityRepository>(
+  'ActivityRepository',
+  ActivityRepository
 );
 
 container.registerSingleton<IStageRepository>(
