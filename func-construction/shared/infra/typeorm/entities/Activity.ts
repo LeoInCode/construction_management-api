@@ -1,14 +1,14 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import Activity from "./Activity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Construction from "./Construction";
+import Stage from "./Stage";
 
-@Entity('stage')
-class Stage {
+@Entity('activity')
+class Activity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
-    stage_name: string;  
+    activity_name: string;  
 
     @CreateDateColumn({type: "timestamp"})
     creation_date: Date;
@@ -22,8 +22,11 @@ class Stage {
     @ManyToOne(()=> Construction, (construction) => construction.stage_items)
     construction_id: Construction;
 
-    @OneToMany(() => Activity, activity => activity.stage_id)
-    activity_items: Activity[];
+    @JoinColumn({
+        name: "stage_id", referencedColumnName: "id"
+    })
+    @ManyToOne(()=> Stage, (stage) => stage.activity_items)
+    stage_id: Stage;
 }
 
-export default Stage;
+export default Activity;
