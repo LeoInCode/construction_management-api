@@ -27,7 +27,7 @@
             "description": "Stage",
             "default": "",
             "examples": [
-                "string"
+                0
             ]
         },
         "activityName": {

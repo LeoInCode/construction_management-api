@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
+import { IRequestInformationActivity } from '../../../../createInformationActivity/interfaces/IRequestInformationActivity.interface';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
 import { IActivityRepository } from '../../../interfaces/repositories/IActivityRepository';
 import { IConstructionRepository } from '../../../interfaces/repositories/IConstructionRepository';
@@ -21,13 +22,34 @@ class InformationActivityRepository implements IInformationActivityRepository {
         this.ormRepository = getRepository(InformationActivity);
     }
 
-    public async createInformationActivity({ activityId, constructionId }: any): Promise<InformationActivity> {
+    public async createInformationActivity(
+        { activityId,
+            constructionId,
+            responsible,
+            deadline,
+            description,
+            description_img,
+            progress,
+            result,
+            result_img}: IRequestInformationActivity): Promise<InformationActivity> {
         try {
             const construction = await this.constructionRepository.getConstruction(constructionId);
 
-            const activity = await this.activityRepository.getActivity(activityId, construction);            
+            const activity = await this.activityRepository.getActivity(activityId, construction);
+            
+            const informationActivity = this.ormRepository.create({
+                construction_id: construction,
+                activity: activity,
+                responsible: responsible,
+                deadline: deadline ||new Date(),
+                description: description,
+                description_img: description_img,
+                progress: progress || 0,
+                result: result,
+                result_img: result_img
+            });
 
-            return;
+            return await this.ormRepository.save(informationActivity);
         } catch (error) {
             if (error.code) {
                 throw error;

@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "constructionId",
+        "activityId",
+        "responsible"
+    ],
+    "properties": {
+        "constructionId": {
+            "$id": "#/properties/constructionId",
+            "type": "number",
+            "title": "The constructionId Schema",
+            "description": "ID da construção",
+            "examples": [
+                0
+            ]
+        },
+        "activityId": {
+            "$id": "#/properties/activityId",
+            "type": "number",
+            "title": "The activityId Schema",
+            "description": "Activity",
+            "examples": [
+                0
+            ]
+        },
+        "responsible": {
+            "$id": "#/properties/responsible",
+            "type": "string",
+            "title": "The responsible Schema",
+            "description": "Nome do responsável",
+            "minLength": 2,
+            "maxLength": 50,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "deadline": {
+            "$id": "#/properties/deadline",
+            "type": "string",
+            "title": "The deadline Schema",
+            "description": "Data final",
+            "maxLength": 50,
+            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "description": {
+            "$id": "#/properties/description",
+            "type": "string",
+            "title": "The description Schema",
+            "description": "Descrição da atividade",
+            "examples": [
+                "string"
+            ]
+        },
+        "description_img": {
+            "$id": "#/properties/description_img",
+            "type": "string",
+            "title": "The description_img Schema",
+            "description": "Imagem da descrição da atividade",
+            "examples": [
+                "string"
+            ]
+        },
+        "progress": {
+            "$id": "#/properties/progress",
+            "type": "number",
+            "title": "The progress Schema",
+            "description": "Progresso da atividade",
+            "examples": [
+                0
+            ]
+        },
+        "result": {
+            "$id": "#/properties/result",
+            "type": "string",
+            "title": "The result Schema",
+            "description": "Resultado da atividade",
+            "examples": [
+                "string"
+            ]
+        },
+        "result_img": {
+            "$id": "#/properties/result_img",
+            "type": "string",
+            "title": "The result_img Schema",
+            "description": "Imagens do Resultado da atividade",
+            "examples": [
+                "string"
+            ]
+        }
+    },
+    "additionalProperties": true
+}

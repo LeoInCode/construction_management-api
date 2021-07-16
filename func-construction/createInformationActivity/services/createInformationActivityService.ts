@@ -1,18 +1,18 @@
 import { inject, injectable } from "tsyringe";
-import { IActivityRepository } from "../../shared/interfaces/repositories/IActivityRepository";
-import { IRequestActivity } from "../interfaces/IRequestActivity.interface";
+import { IInformationActivityRepository } from "../../shared/interfaces/repositories/IInformationActivityRepository";
+import { IRequestInformationActivity } from "../interfaces/IRequestInformationActivity.interface";
 
 @injectable()
-class CreateActivityService {
+class CreateInformationActivityService {
 
     constructor(
-        @inject('ActivityRepository')
-        private activityRepository: IActivityRepository
+        @inject('InformationActivityRepository')
+        private informationActivityRepository: IInformationActivityRepository
     ) {}
 
-    public async execute(payload: IRequestActivity) {
+    public async execute(payload: IRequestInformationActivity): Promise<any> {
         try {
-            await this.activityRepository.createActivity(payload);
+            await this.informationActivityRepository.createInformationActivity(payload);
     
             return {
                 status: 200,
@@ -39,4 +39,4 @@ class CreateActivityService {
     }
 }
 
-export default CreateActivityService;
+export default CreateInformationActivityService;
