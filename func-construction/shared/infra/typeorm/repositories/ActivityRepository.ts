@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
 import { IRequestActivity } from '../../../../createActivity/interfaces/IRequestActivity.interface';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
+import { NotFoundException } from '../../../exception/notFound.exception';
 import { IActivityRepository } from '../../../interfaces/repositories/IActivityRepository';
 import { IConstructionRepository } from '../../../interfaces/repositories/IConstructionRepository';
 import { IStageRepository } from '../../../interfaces/repositories/IStageRepository';
@@ -56,6 +57,15 @@ class ActivityRepository implements IActivityRepository {
                 id: id,
                 construction_id: construction
             });
+
+            if(activity) {
+                throw new NotFoundException(
+                    "400",
+                    "Activity não encontrado",
+                    "Activity não encontrado",
+                    "ERROR"
+                );
+            }
     
             return activity;
         } catch (error) {

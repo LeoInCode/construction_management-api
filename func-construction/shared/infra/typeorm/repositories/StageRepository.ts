@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
+import { NotFoundException } from '../../../exception/notFound.exception';
 import { IConstructionRepository } from '../../../interfaces/repositories/IConstructionRepository';
 import { IStageRepository } from '../../../interfaces/repositories/IStageRepository';
 import Construction from '../entities/Construction';
@@ -48,6 +49,15 @@ class StageRepository implements IStageRepository {
                 id: id,
                 construction_id: construction
             });
+
+            if(!stage) {
+                throw new NotFoundException(
+                    "400",
+                    "Stage não encontrado",
+                    "Stage não encontrado",
+                    "ERROR"
+                );
+            }
     
             return stage;
         } catch (error) {

@@ -23,7 +23,16 @@ class ConstructionRepository implements IConstructionRepository {
     public async createConstruction(
         { userId, client, responsible, type, displayName }: IRequestConstruction): Promise<Construction> {
         try {
-            const user = await this.userRepository.getUser(userId);            
+            const user = await this.userRepository.getUser(userId);
+
+            if(!user) {
+                throw new NotFoundException(
+                    "400",
+                    "Usuário não encontrado",
+                    "Usuário não encontrado",
+                    "ERROR"
+                );
+            }
 
             const construction = this.ormRepository.create({
                 user_id: user,

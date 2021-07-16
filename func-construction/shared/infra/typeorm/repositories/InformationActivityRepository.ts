@@ -41,7 +41,7 @@ class InformationActivityRepository implements IInformationActivityRepository {
                 construction_id: construction,
                 activity: activity,
                 responsible: responsible,
-                deadline: deadline ||new Date(),
+                deadline: deadline || new Date(),
                 description: description,
                 description_img: description_img,
                 progress: progress || 0,
