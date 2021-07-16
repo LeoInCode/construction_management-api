@@ -7,7 +7,7 @@ import { IActivityRepository } from '../../../interfaces/repositories/IActivityR
 import { IConstructionRepository } from '../../../interfaces/repositories/IConstructionRepository';
 import { IStageRepository } from '../../../interfaces/repositories/IStageRepository';
 import Activity from '../entities/Activity';
-import Stage from '../entities/Stage';
+import Construction from '../entities/Construction';
 
 @injectable()
 class ActivityRepository implements IActivityRepository {
@@ -50,6 +50,26 @@ class ActivityRepository implements IActivityRepository {
         }
     }
 
+    public async getActivity(id: number, construction: Construction): Promise<Activity> {
+        try {
+            const activity = await this.ormRepository.findOne({
+                id: id,
+                construction_id: construction
+            });
+    
+            return activity;
+        } catch (error) {
+            if(error.code) {
+                throw error;
+            }
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Activity"
+            );
+        }
+    }
 }
 
 export default ActivityRepository;

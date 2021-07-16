@@ -42,7 +42,7 @@ class StageRepository implements IStageRepository {
         }
     }
 
-    public async getStage(id: number, construction: Construction) {
+    public async getStage(id: number, construction: Construction): Promise<Stage> {
         try {
             const stage = await this.ormRepository.findOne({
                 id: id,
@@ -62,7 +62,6 @@ class StageRepository implements IStageRepository {
             );
         }
     }
-    
 }
 
 export default StageRepository;
