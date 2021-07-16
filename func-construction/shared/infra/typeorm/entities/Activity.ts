@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import Construction from "./Construction";
+import InformationActivity from "./InformationActivity";
 import Stage from "./Stage";
 
 @Entity('activity')
@@ -27,6 +28,12 @@ class Activity {
     })
     @ManyToOne(()=> Stage, (stage) => stage.activity_items)
     stage_id: Stage;
+
+    @OneToOne(
+        () => InformationActivity,
+        InformationActivity => InformationActivity.activity
+    )
+    information_activity: InformationActivity;
 }
 
 export default Activity;
