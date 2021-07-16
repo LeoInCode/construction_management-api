@@ -53,12 +53,15 @@ class ActivityRepository implements IActivityRepository {
 
     public async getActivity(id: number, construction: Construction): Promise<Activity> {
         try {
+            const stage = await this.stageRepository.getStage(id, construction);
+            
             const activity = await this.ormRepository.findOne({
                 id: id,
-                construction_id: construction
+                construction_id: construction,
+                stage_id: stage
             });
 
-            if(activity) {
+            if(!activity) {
                 throw new NotFoundException(
                     "400",
                     "Activity não encontrado",

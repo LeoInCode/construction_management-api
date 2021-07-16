@@ -3,4 +3,5 @@ import InformationActivity from "../../infra/typeorm/entities/InformationActivit
 
 export interface IInformationActivityRepository {
     createInformationActivity(informationActivity: IRequestInformationActivity): Promise<InformationActivity>;
+    getInformationActivity(id: number): Promise<InformationActivity>;
 }

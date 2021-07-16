@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
 import { IRequestInformationActivity } from '../../../../createInformationActivity/interfaces/IRequestInformationActivity.interface';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
+import { NotFoundException } from '../../../exception/notFound.exception';
 import { IActivityRepository } from '../../../interfaces/repositories/IActivityRepository';
 import { IConstructionRepository } from '../../../interfaces/repositories/IConstructionRepository';
 import { IInformationActivityRepository } from '../../../interfaces/repositories/IInformationActivityRepository';
@@ -63,6 +64,40 @@ class InformationActivityRepository implements IInformationActivityRepository {
         }
     }
 
+    public async getInformationActivity(id: number): Promise<InformationActivity> {
+        try {
+            const construction = await this.constructionRepository.getConstruction(id);
+
+            const activity = await this.activityRepository.getActivity(id, construction);
+
+            const informationActivity = await this.ormRepository.findOne({
+                id: id,
+                construction_id: construction,
+                activity: activity
+            });
+
+            if(!informationActivity) {
+                throw new NotFoundException(
+                    "400",
+                    "InformationActivity não encontrado",
+                    "InformationActivity não encontrado",
+                    "ERROR"
+                );
+            }
+    
+            return informationActivity;
+        } catch (error) {
+            if(error.code) {
+                throw error;
+            }
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "InformationActivity"
+            );
+        }
+    }
 }
 
 export default InformationActivityRepository;
