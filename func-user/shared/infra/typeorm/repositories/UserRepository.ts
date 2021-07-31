@@ -28,7 +28,7 @@ class UserRepository implements IUserRepository {
                     "Usuário não encontrado",
                     "Usuário não encontrado",
                     "ERROR"
-                )
+                );
             }
             
             return user;
