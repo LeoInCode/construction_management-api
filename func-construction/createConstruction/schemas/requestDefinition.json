@@ -5,20 +5,20 @@
     "title": "The Root Schema",
     "description": "The root schema comprises the entire JSON document.",
     "required": [
-        "userId",
+        "permissions",
         "responsible",
         "client",
         "displayName"
     ],
     "properties": {
-        "userId": {
-            "$id": "#/properties/userId",
-            "type": "number",
-            "title": "The userId Schema",
-            "description": "Id do usuário",
+        "permissions": {
+            "$id": "#/properties/permissions",
+            "type": "string",
+            "title": "The permissions Schema",
+            "description": "Permissões do usuário",
             "default": "",
             "examples": [
-                1
+                "{\"profileId\":\"9128039281\",\"occupation\":\"admin\"}"
             ]
         },
         "responsible": {

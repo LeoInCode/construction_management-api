@@ -4,8 +4,6 @@ import "../shared/infra/typeorm";
 
 import { IConstructionRepository } from '../shared/interfaces/repositories/IConstructionRepository';
 import ConstructionRepository from '../shared/infra/typeorm/repositories/ConstructionRepository';
-import IUserRepository from '../shared/interfaces/repositories/IUserRepository';
-import UserRepository from '../shared/infra/typeorm/repositories/UserRepository';
 import { IUserEndpoint } from '../shared/interfaces/endpoints/IGetUserEndpoint';
 import UserEndpoint from '../shared/infra/http/endpoints/GetUserEndpoint';
 import { IHandleContent } from '../shared/interfaces/services/IHandleContent';
@@ -20,11 +18,6 @@ import InformationActivityRepository from '../shared/infra/typeorm/repositories/
 container.registerSingleton<IConstructionRepository>(
   'ConstructionRepository',
   ConstructionRepository
-);
-
-container.registerSingleton<IUserRepository>(
-  'UserRepository',
-  UserRepository,
 );
 
 container.registerSingleton<IActivityRepository>(

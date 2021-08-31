@@ -10,31 +10,16 @@ class CreateConstructionService {
     constructor(
         @inject('ConstructionRepository')
         private constructionRepository: IConstructionRepository,
-        @inject('HandleContent')
-        private handleContent: IHandleContent,
     ) { }
 
-    public async execute(token: string, payload: IRequestConstruction) {
+    public async execute(payload: IRequestConstruction) {
         try {
             await this.constructionRepository.createConstruction(payload);
-            
-            const {
-                id,
-                completeName,
-                email,
-                position,
-                accessToken,
-                refreshToken } = await this.handleContent.updateUser(token, payload.refreshToken);
                 
             return {
                 status: 200,
                 data: {
-                    id,
-                    completeName,
-                    email,
-                    position,
-                    accessToken,
-                    refreshToken
+                    message: "success"
                 }
             }
         } catch (error) {

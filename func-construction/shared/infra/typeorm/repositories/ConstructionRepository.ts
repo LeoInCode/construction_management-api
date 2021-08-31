@@ -1,10 +1,9 @@
 import 'reflect-metadata';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
 import { IRequestConstruction } from '../../../../createConstruction/interfaces/IRequestConstruction.interface';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
 import { NotFoundException } from '../../../exception/notFound.exception';
-import IUserRepository from '../../../interfaces/repositories/IUserRepository';
 import Construction from '../entities/Construction';
 import { IConstructionRepository } from './../../../interfaces/repositories/IConstructionRepository';
 
@@ -13,41 +12,23 @@ class ConstructionRepository implements IConstructionRepository {
     
     private ormRepository: Repository<Construction>;
 
-    constructor(
-        @inject('UserRepository')
-        private userRepository: IUserRepository
-    ) {
+    constructor( ) {
         this.ormRepository = getRepository(Construction);
     }
 
     public async createConstruction(
-        { userId, client, responsible, type, displayName }: IRequestConstruction): Promise<Construction> {
+        { client, responsible, type, displayName, permissions }: IRequestConstruction): Promise<Construction> {
         try {
-            const user = await this.userRepository.getUser(userId);
-
-            if(!user) {
-                throw new NotFoundException(
-                    "400",
-                    "Usuário não encontrado",
-                    "Usuário não encontrado",
-                    "ERROR"
-                );
-            }
-
             const construction = this.ormRepository.create({
-                user_id: user,
                 client: client,
                 responsible: responsible,
                 type: type,
                 display_name: displayName,
-                user_permissions: ''
+                permissions_profile_id: permissions
             });
 
             return await this.ormRepository.save(construction);
-        } catch (error) {
-            if(error.code) {
-                throw error;
-            }
+        } catch (error) {            
             throw new InternalServerErrorException(
                 "500",
                 error.message,
@@ -83,7 +64,26 @@ class ConstructionRepository implements IConstructionRepository {
             );
         }
     }
-    
+
+    public async updateConstruction({ constructionId, permissions }: IRequestConstruction) {
+        try {
+            const construction = await this.ormRepository.findOne({id: constructionId});
+
+            let parsePermissions = JSON.parse(construction.permissions_profile_id);
+            let newProfilePermission = JSON.parse(permissions);
+
+            construction.permissions_profile_id = JSON.stringify({...parsePermissions, newProfilePermission})
+
+            return await this.ormRepository.save(construction);
+        } catch (error) {
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Construction"
+            );
+        }
+    }
 }
 
 export default ConstructionRepository;
