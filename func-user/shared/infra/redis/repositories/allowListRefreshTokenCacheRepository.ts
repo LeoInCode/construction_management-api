@@ -30,9 +30,9 @@ class AllowListRefreshTokenCacheRepository implements IAllowListRefreshTokenCach
     }
   }
 
-  public async set(token: string, { id, complete_name, email, position }: User, dateExpiration: number): Promise<string> {
+  public async set(token: string, { id, complete_name, email }: User, dateExpiration: number): Promise<string> {
     try {
-      const result = await this.setAsync(this.prefix + token, JSON.stringify({ id, complete_name, email, position }))
+      const result = await this.setAsync(this.prefix + token, JSON.stringify({ id, complete_name, email }))
       this.expireAsync(this.prefix + token, dateExpiration);
 
       return result;

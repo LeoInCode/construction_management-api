@@ -24,7 +24,6 @@ class GetUserService {
                 id: id,
                 completeName: complete_name,
                 email: email,
-                position: position,
                 permission: permission
             }
 

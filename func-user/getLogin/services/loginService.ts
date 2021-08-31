@@ -28,7 +28,6 @@ class LoginService {
                 id: user.id,
                 completeName: user.complete_name,
                 email: user.email,
-                position: user.position,
                 accessToken: accessToken,
                 refreshToken: refreshToken
             }

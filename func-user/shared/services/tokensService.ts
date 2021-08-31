@@ -14,8 +14,8 @@ class TokenService {
     ) { }
 
     public createTokenJWT(user: User, [timeQuantity, timeUnity]: any): string {
-        const { id, complete_name, email, position }: User = user;
-        const token = jwt.sign({ id, complete_name, email, position }, process.env.CHAVE_JWT, {
+        const { id, complete_name, email }: User = user;
+        const token = jwt.sign({ id, complete_name, email }, process.env.CHAVE_JWT, {
           expiresIn: timeQuantity + timeUnity
         });
         return token;
