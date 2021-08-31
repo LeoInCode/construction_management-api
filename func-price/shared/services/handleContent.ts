@@ -11,9 +11,9 @@ class HandleContent {
         private getUserEndpoint: IGetUserEndpoint
     ) { }
 
-    public async getUser(accessToken: string, entity: string, action: string): Promise<IResponseGetUser> {
+    public async getUser(accessToken: string, position: string, entity: string, action: string): Promise<IResponseGetUser> {
         try {            
-            const { data } = await this.getUserEndpoint.getUser(accessToken, entity, action);
+            const { data } = await this.getUserEndpoint.getUser(accessToken, position, entity, action);
 
             return data;
         } catch ({response}) {

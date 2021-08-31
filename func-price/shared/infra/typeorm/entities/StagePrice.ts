@@ -9,10 +9,10 @@ class StagePrice {
     construction_id: number;
 
     @Column()
-    stage: string;  
+    stage: string;
  
     @Column()
-    description: string;  
+    description: string;
 
     @Column(​​​​​​​​{​​​​​​​​ nullable: false, type: 'decimal', precision: 12, scale: 4 })
     amount: number;

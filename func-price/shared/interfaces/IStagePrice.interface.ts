@@ -3,6 +3,7 @@ export interface IStagePrice {
     stage: string;
     description: string;
     amount: number;
+    position?: string;
     creationDate?: Date;
     lastUpdate?: Date;
 }

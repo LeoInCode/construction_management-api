@@ -16,9 +16,9 @@ class ListManpowerPriceService {
         private handleContent: IHandleContent,
     ) { }
 
-    public async execute(constructionId: string, accessToken: string) {
+    public async execute(constructionId: string, position: string, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.read);
+            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.entity, DataTypeGetUser.action.read);
 
             const manpowerPrice: ManpowerPrice[] = await this.manpowerPriceRepository.listManpowerPrice(+constructionId);
 

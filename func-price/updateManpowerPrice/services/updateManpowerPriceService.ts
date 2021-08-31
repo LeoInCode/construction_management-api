@@ -15,9 +15,9 @@ class UpdateManpowerPriceService {
         private handleContent: IHandleContent,
     ) { }
 
-    public async execute(body: IManpowerPrice, id: string, accessToken: string) {
+    public async execute(body: IManpowerPrice, position: string, id: string, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.update);
+            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.entity, DataTypeGetUser.action.update);
 
             await this.manpowerPriceRepository.updateManpowerPrice(+id, body);
 

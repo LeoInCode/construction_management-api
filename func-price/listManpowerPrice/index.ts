@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let accessToken = req.headers.authorization.split(' ')[1];
 
         const listManpowerPrice = container.resolve(ListManpowerPriceService);
-        const manpowerPrice = await listManpowerPrice.execute(req.params.id, accessToken);
+        const manpowerPrice = await listManpowerPrice.execute(req.params.id, req.query.position, accessToken);
         context.res = {
             status: manpowerPrice.status,
             body: manpowerPrice.data

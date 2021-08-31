@@ -15,9 +15,9 @@ class DeleteMaterialPriceService {
         private handleContent: IHandleContent,
     ) { }
 
-    public async execute(id: string, accessToken: string) {
+    public async execute(id: string, position: string, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.delete);
+            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.entity, DataTypeGetUser.action.delete);
 
             const materialPrice = await this.materialPriceRepository.deleteMaterialPrice(+id);
 

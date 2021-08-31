@@ -14,7 +14,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let accessToken = req.headers.authorization.split(' ')[1];
 
         const deleteStagePrice = container.resolve(DeleteStagePriceService);
-        const stagePrice = await deleteStagePrice.execute(req.params.id, accessToken);
+        const stagePrice = await deleteStagePrice.execute(req.params.id, req.query.position, accessToken);
         context.res = {
             status: stagePrice.status,
             body: stagePrice.data

@@ -15,9 +15,9 @@ class UpdateMaterialPriceService {
         private handleContent: IHandleContent,
     ) { }
 
-    public async execute(body: IMaterialPrice, id: string, accessToken: string) {
+    public async execute(body: IMaterialPrice, id: string, position: string, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.update);
+            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.entity, DataTypeGetUser.action.update);
 
             await this.materialPriceRepository.updateMaterialPrice(+id, body);
 

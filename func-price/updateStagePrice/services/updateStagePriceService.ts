@@ -15,9 +15,9 @@ class UpdateStagePriceService {
         private handleContent: IHandleContent,
     ) { }
 
-    public async execute(body: IStagePrice, id: string, accessToken: string) {
+    public async execute(body: IStagePrice, id: string, position: string, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, DataTypeGetUser.entity, DataTypeGetUser.action.update);
+            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.entity, DataTypeGetUser.action.update);
 
             await this.stagePriceRepository.updateStagePrice(+id, body);
 
