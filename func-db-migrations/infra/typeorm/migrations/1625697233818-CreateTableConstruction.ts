@@ -15,10 +15,6 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                         generationStrategy: 'increment' 
                     },
                     {
-                        name: 'user_id',
-                        type: 'integer'
-                    },
-                    {
                         name: 'responsible',
                         type: 'varchar',
                         isNullable: false
@@ -34,7 +30,7 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                         isNullable: false
                     },
                     {
-                        name: 'user_permissions',
+                        name: 'permissions_profile_id',
                         type: 'text',
                         default: null
                     },
@@ -56,21 +52,9 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                 ]
             })
         )
-
-        await queryRunner.createForeignKey(
-            'construction_config',
-            new TableForeignKey({
-                name: 'construction_config_FK_user_config',
-                columnNames: ['user_id'],
-                referencedTableName: 'user_config',
-                referencedColumnNames: ['id']
-            })
-        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('construction_config', 'construction_config_FK_user_config');
         await queryRunner.dropTable('construction_config');
     }
-
 }
