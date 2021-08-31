@@ -4,6 +4,7 @@ import { IUser } from '../../shared/interfaces/IUser.interface';
 import AuthService from '../../shared/services/authService';
 import tokens from '../../shared/utils/tokens';
 import { authorization } from '../../shared/utils/authorization/authorization';
+import { IPayloadAuthorization } from '../interfaces/IPayloadAuthorization.interface';
 
 @injectable()
 class GetUserService {
@@ -12,13 +13,13 @@ class GetUserService {
 
     constructor() { }
 
-    public async execute(token: string, entity: string, action: string) {
+    public async execute(token: string, payload: IPayloadAuthorization) {
         try {
             this.authService = new AuthService();
 
-            const { id, complete_name, email, position } = await tokens.access.verify(token);
+            const { id, complete_name, email } = await tokens.access.verify(token);
             
-            const { permission } = authorization(position, entity, action);
+            const { permission } = authorization(payload.position, payload.entity, payload.action);
             
             const userFiltered: IUser = {
                 id: id,

@@ -66,19 +66,6 @@
             "examples": [
                 false
             ]
-        },
-        "position": {
-            "$id": "#/properties/position",
-            "type": "string",
-            "title": "The position Schema",
-            "description": "Cargo do usuário.",
-            "default": "",
-            "enum": [
-                "client", "employee", "admin"
-            ],
-            "examples": [
-                "string"
-            ]
         }
     },
     "additionalProperties": true

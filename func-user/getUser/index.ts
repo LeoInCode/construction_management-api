@@ -10,8 +10,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
             
         let token = req.headers.authorization.split(' ')[1];
+        const {
+            entity,
+            action,
+            position
+        } = req.query;
     
-        const userResponse = await new GetUserService().execute(token, req.query.entity, req.query.action);
+        const userResponse = await new GetUserService().execute(token, {entity, action, position})
         context.res = {
             status: userResponse.status,
             body: userResponse.data
