@@ -35,11 +35,6 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                         name: 'email_verify',
                         type: 'boolean',
                         default: false
-                    },
-                    {
-                        name: 'position',
-                        type: 'varchar',
-                        enum: ['client', 'employee', 'admin']
                     }
                 ]
             })
@@ -49,5 +44,4 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('user_config');
     }
-
 }
