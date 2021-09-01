@@ -30,6 +30,11 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                         isNullable: false
                     },
                     {
+                        name: 'profile_id',
+                        type: 'varchar',
+                        isNullable: false
+                    },
+                    {
                         name: 'permissions_profile_id',
                         type: 'text',
                         default: null
