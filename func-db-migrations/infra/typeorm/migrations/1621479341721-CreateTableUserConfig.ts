@@ -29,7 +29,12 @@ export class CreateTableUserConfig1621479341721 implements MigrationInterface {
                     {
                         name: 'password',
                         type: 'varchar',
-                        isNullable: false,
+                        isNullable: false
+                    },
+                    {
+                        name: 'cpf',
+                        type: 'varchar',
+                        isNullable: false
                     },
                     {
                         name: 'email_verify',
