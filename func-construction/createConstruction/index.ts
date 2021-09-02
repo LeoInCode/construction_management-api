@@ -5,8 +5,6 @@ import { RequestValidation } from "../shared/utils/requestValidation";
 import CreateConstructionService from './services/createConstructionService';
 import * as path from 'path';
 import '../container';
-import { MemberNotAuthenticatedException } from '../shared/exception/memberNotAuthenticatedexception';
-
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     const responseSchemaValidation = RequestValidation.validate(context, req, path.join(__dirname, './schemas/requestDefinition.json'));

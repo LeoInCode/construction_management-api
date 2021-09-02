@@ -1,31 +1,36 @@
 import 'reflect-metadata';
 import { inject, injectable } from "tsyringe";
 import { IConstructionRepository } from "../../shared/interfaces/repositories/IConstructionRepository";
-import { IHandleContent } from '../../shared/interfaces/services/IHandleContent';
-import { IRequestConstruction } from "../interfaces/IRequestConstruction.interface";
 import '../../container';
-import { IPermissionsConstructionRepository } from '../../shared/interfaces/repositories/IPermissionsConstructionRepository';
+
 @injectable()
-class CreateConstructionService {
+class ListConstructionService {
 
     constructor(
         @inject('ConstructionRepository')
         private constructionRepository: IConstructionRepository,
-        @inject('PermissionsConstructionRepository')
-        private permissionsConstructionRepository: IPermissionsConstructionRepository,
     ) { }
 
-    public async execute(payload: IRequestConstruction) {
+    public async execute(profileId: string) {
         try {
-            const construction = await this.constructionRepository.createConstruction(payload);
-                
-            await this.permissionsConstructionRepository.createPermissionsConstruction(construction, payload.position)
+            const constructions = await this.constructionRepository.getConstructionWithProfileId(profileId);
+            let constructionsFiltered = constructions.map(item => {                
+                return {
+                    id: item.id,
+                    displayName: item.display_name,
+                    responsible: item.responsible,
+                    client: item.client,
+                    profileId: item.profile_id,
+                    type: item.type,
+                    position: item.permissions[0].position,
+                    creationDate: item.creation_date,
+                    lastUpdate: item.last_update,
+                }
+            });
 
             return {
                 status: 200,
-                data: {
-                    message: "success"
-                }
+                data: constructionsFiltered
             }
         } catch (error) {
             if (error.event) {
@@ -46,4 +51,4 @@ class CreateConstructionService {
     }
 }
 
-export default CreateConstructionService;
+export default ListConstructionService;

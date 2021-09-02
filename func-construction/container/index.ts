@@ -14,10 +14,17 @@ import { IActivityRepository } from '../shared/interfaces/repositories/IActivity
 import ActivityRepository from '../shared/infra/typeorm/repositories/ActivityRepository';
 import { IInformationActivityRepository } from '../shared/interfaces/repositories/IInformationActivityRepository';
 import InformationActivityRepository from '../shared/infra/typeorm/repositories/InformationActivityRepository';
+import { IPermissionsConstructionRepository } from '../shared/interfaces/repositories/IPermissionsConstructionRepository';
+import PermissionsConstructionRepository from '../shared/infra/typeorm/repositories/PermissionsConstructionRepository';
 
 container.registerSingleton<IConstructionRepository>(
   'ConstructionRepository',
   ConstructionRepository
+);
+
+container.registerSingleton<IPermissionsConstructionRepository>(
+  'PermissionsConstructionRepository',
+  PermissionsConstructionRepository
 );
 
 container.registerSingleton<IActivityRepository>(

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import PermissionsConstruction from "./PermissionsConstruction";
 import Stage from "./Stage";
 
 @Entity('construction_config')
@@ -15,11 +16,11 @@ class Construction {
     @Column(​​​​​​​​)
     type: string;
 
+    @Column()
+    profile_id: string
+
     @Column(​​​​​​​​)
     display_name: string;
-
-    @Column()
-    permissions_profile_id: string;
 
     @CreateDateColumn({type: "timestamp"})
     creation_date: Date;
@@ -29,6 +30,9 @@ class Construction {
 
     @OneToMany(() => Stage, stage => stage.construction_id)
     stage_items: Stage[];
+
+    @OneToMany(() => PermissionsConstruction, permissions => permissions.construction_id)
+    permissions: PermissionsConstruction[];
 }
 
 export default Construction;

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { injectable } from 'tsyringe';
-import { getRepository, Repository } from 'typeorm';
+import { Brackets, getRepository, Repository } from 'typeorm';
 import { IRequestConstruction } from '../../../../createConstruction/interfaces/IRequestConstruction.interface';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
 import { NotFoundException } from '../../../exception/notFound.exception';
@@ -17,14 +17,14 @@ class ConstructionRepository implements IConstructionRepository {
     }
 
     public async createConstruction(
-        { client, responsible, type, displayName, permissions }: IRequestConstruction): Promise<Construction> {
+        { client, responsible, type, displayName, profileId }: IRequestConstruction): Promise<Construction> {
         try {
             const construction = this.ormRepository.create({
                 client: client,
                 responsible: responsible,
                 type: type,
                 display_name: displayName,
-                permissions_profile_id: permissions
+                profile_id: profileId,
             });
 
             return await this.ormRepository.save(construction);
@@ -65,17 +65,25 @@ class ConstructionRepository implements IConstructionRepository {
         }
     }
 
-    public async updateConstruction({ constructionId, permissions }: IRequestConstruction) {
+    public async getConstructionWithProfileId(profileId: string): Promise<Construction[]> {
         try {
-            const construction = await this.ormRepository.findOne({id: constructionId});
+            const construction = await this.ormRepository
+                .createQueryBuilder('construction_config')
+                .innerJoinAndSelect('construction_config.permissions', 'permissions')
+                .where(
+                    new Brackets(qb => {
+                        if(profileId) {
+                            qb.where('construction_config.profile_id = :profileId', { profileId });
+                        }
+                    })
+                )
+                .getMany();
 
-            let parsePermissions = JSON.parse(construction.permissions_profile_id);
-            let newProfilePermission = JSON.parse(permissions);
-
-            construction.permissions_profile_id = JSON.stringify({...parsePermissions, newProfilePermission})
-
-            return await this.ormRepository.save(construction);
+            return construction;
         } catch (error) {
+            if(error.code) {
+                throw error;
+            }
             throw new InternalServerErrorException(
                 "500",
                 error.message,

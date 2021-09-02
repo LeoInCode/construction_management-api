@@ -5,20 +5,24 @@
     "title": "The Root Schema",
     "description": "The root schema comprises the entire JSON document.",
     "required": [
-        "permissions",
+        "position",
         "responsible",
         "client",
-        "displayName"
+        "displayName",
+        "profileId"
     ],
     "properties": {
-        "permissions": {
-            "$id": "#/properties/permissions",
+        "position": {
+            "$id": "#/properties/position",
             "type": "string",
-            "title": "The permissions Schema",
-            "description": "Permissões do usuário",
-            "default": "",
+            "title": "The position Schema",
+            "description": "Permissão do usuário.",
+            "default": "client",
+            "enum": [
+                "client", "employee", "admin"
+            ],
             "examples": [
-                "{\"profileId\":\"9128039281\",\"occupation\":\"admin\"}"
+                "string"
             ]
         },
         "responsible": {
@@ -28,7 +32,6 @@
             "description": "Reponsável",
             "minLength": 2,
             "maxLength": 50,
-            "default": "",
             "examples": [
                 "string"
             ]
@@ -40,7 +43,6 @@
             "description": "Cliente",
             "minLength": 2,
             "maxLength": 50,
-            "default": "",
             "examples": [
                 "string"
             ]
@@ -50,7 +52,6 @@
             "type": "string",
             "title": "The type Schema",
             "description": "Tipo de obra",
-            "default": "",
             "maxLength": 30,
             "examples": [
                 "string"
@@ -63,7 +64,17 @@
             "description": "Nome da obra",
             "minLength": 5,
             "maxLength": 50,
-            "default": "",
+            "examples": [
+                "string"
+            ]
+        },
+        "profileId": {
+            "$id": "#/properties/profileId",
+            "type": "string",
+            "title": "The profileId Schema",
+            "description": "CPF do usuário",
+            "minLength": 5,
+            "maxLength": 20,
             "examples": [
                 "string"
             ]

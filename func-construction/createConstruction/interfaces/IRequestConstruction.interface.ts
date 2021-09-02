@@ -4,7 +4,8 @@ export interface IRequestConstruction {
     client: string;
     type: string;
     occupation: string;
-    permissions: string; //JSON em formto de string: "{\"profileId\":\"9128039281\",\"occupation\":\"employee\"}"
+    profileId: string;
+    position: string;
     displayName: string;
     refreshToken: string;
 }
