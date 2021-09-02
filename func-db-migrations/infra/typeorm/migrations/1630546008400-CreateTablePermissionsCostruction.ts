@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateTableConstruction1625697233818 implements MigrationInterface {
+export class CreateTablePermissionsCostruction1630546008400 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'construction_config',
+                name: 'permissions_construction',
                 columns: [
                     {
                         name: 'id',
@@ -15,18 +15,8 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                         generationStrategy: 'increment' 
                     },
                     {
-                        name: 'responsible',
-                        type: 'varchar',
-                        isNullable: false
-                    },
-                    {
-                        name: 'client',
-                        type: 'varchar',
-                        isNullable: false
-                    },
-                    {
-                        name: 'type',
-                        type: 'varchar',
+                        name: 'construction_id',
+                        type: 'integer',
                         isNullable: false
                     },
                     {
@@ -35,7 +25,7 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                         isNullable: false
                     },
                     {
-                        name: 'display_name',
+                        name: 'position',
                         type: 'varchar',
                         isNullable: false
                     },
@@ -52,9 +42,21 @@ export class CreateTableConstruction1625697233818 implements MigrationInterface 
                 ]
             })
         )
+
+        await queryRunner.createForeignKey(
+            'permissions_construction',
+            new TableForeignKey({
+                name: 'permissions_construction_FK_construction_config',
+                columnNames: ['construction_id'],
+                referencedTableName: 'construction_config',
+                referencedColumnNames: ['id']
+            })
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('construction_config');
+        await queryRunner.dropForeignKey('permissions_construction', 'permissions_construction_FK_construction_config');
+        await queryRunner.dropTable('permissions_construction');
     }
+
 }
