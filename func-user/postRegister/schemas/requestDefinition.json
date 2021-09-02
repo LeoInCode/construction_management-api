@@ -7,6 +7,7 @@
     "required": [
         "completeName",
         "email",
+        "cpf",
         "password"
     ],
     "properties": {
@@ -41,6 +42,17 @@
             "pattern": "^\\S+@\\S+\\.\\S+$",
             "minLength": 10,
             "maxLength": 40,
+            "examples": [
+                "string"
+            ]
+        },
+        "cpf": {
+            "$id": "#/properties/cpf",
+            "type": "string",
+            "title": "The cpf Schema",
+            "description": "Cpf do usuário",
+            "minLength": 5,
+            "maxLength": 20,
             "examples": [
                 "string"
             ]
