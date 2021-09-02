@@ -1,4 +1,5 @@
 import { getRepository, Repository } from "typeorm";
+import { IPayload } from "../../../../putUser/interfaces/IPayload.interface";
 import { InternalServerErrorException } from "../../../exception/internalServerError.exception";
 import { NotFoundException } from "../../../exception/notFound.exception";
 import { IUser } from "../../../interfaces/IUser.interface";
@@ -44,11 +45,12 @@ class UserRepository implements IUserRepository {
         }
     }
 
-    public async createUser({ completeName, email, password }: IUser, passwordHash: string): Promise<User> {
+    public async createUser({ completeName, email, cpf, password }: IUser, passwordHash: string): Promise<User> {
         try {
             const user = this.ormRepository.create({
                 complete_name: completeName,
                 email: email,
+                cpf: cpf,
                 password: passwordHash
             });
             
@@ -63,7 +65,7 @@ class UserRepository implements IUserRepository {
         }
     }
 
-    public async updateUser(id: number, { completeName, password }: IUser): Promise<User> {
+    public async updateUser(id: number, { completeName, password }: IPayload): Promise<User> {
         try {
             let user = await this.ormRepository.findOne({id: id});
 
@@ -77,8 +79,8 @@ class UserRepository implements IUserRepository {
             }
             
             await this.ormRepository.update({id: id}, {
-                complete_name: completeName || user.complete_name,
-                password: password || user.password
+                complete_name: completeName ?? user.complete_name,
+                password: password ?? user.password
             });
 
             return await this.ormRepository.findOne({id: id});

@@ -1,5 +1,4 @@
 import { injectable, inject } from 'tsyringe';
-import IUserRepository from '../../shared/repositories/IUserRepository';
 import { IUser } from '../../shared/interfaces/IUser.interface';
 import AuthService from '../../shared/services/authService';
 import tokens from '../../shared/utils/tokens';
@@ -17,7 +16,7 @@ class GetUserService {
         try {
             this.authService = new AuthService();
 
-            const { id, complete_name, email } = await tokens.access.verify(token);
+            const { id, complete_name, email, cpf } = await tokens.access.verify(token);
             
             const { permission } = authorization(payload.position, payload.entity, payload.action);
             
@@ -25,6 +24,7 @@ class GetUserService {
                 id: id,
                 completeName: complete_name,
                 email: email,
+                cpf: cpf,
                 permission: permission
             }
 

@@ -15,6 +15,9 @@ class User {
     password: string;
 
     @Column()
+    cpf: string;
+
+    @Column()
     email_verify: boolean;
 }
 

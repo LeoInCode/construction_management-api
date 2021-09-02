@@ -21,7 +21,7 @@ class PutUserService {
 
             this.authService = new AuthService();
 
-            const { id, complete_name, email, position } = await tokens.access.verify(accessToken);
+            const { id } = await tokens.access.verify(accessToken);
 
             if(body.password) {
                 const passwordHash = await this.authService.generatePasswordHash(body.password);
@@ -40,6 +40,7 @@ class PutUserService {
                 id: user.id,
                 completeName: user.complete_name,
                 email: user.email,
+                cpf: user.cpf,
                 accessToken: accessTokenCriado,
                 refreshToken: refreshToken
             }

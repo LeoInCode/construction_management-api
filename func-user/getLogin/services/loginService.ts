@@ -28,6 +28,7 @@ class LoginService {
                 id: user.id,
                 completeName: user.complete_name,
                 email: user.email,
+                cpf: user.cpf,
                 accessToken: accessToken,
                 refreshToken: refreshToken
             }
