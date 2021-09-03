@@ -1,17 +1,16 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import ListInformationActivityService from './services/listInformationActivityService';
+import ListStages from './services/listStagesService';
 import '../container';
-
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
-        const informationActivity = container.resolve(ListInformationActivityService);
-        const createInformationActivity = await informationActivity.execute(+req.params.id);
+        const listStages = container.resolve(ListStages);
+        const response = await listStages.execute(+req.params.constructionId);
         context.res = {
-            status: createInformationActivity.status,
-            body: createInformationActivity.data
+            status: response.status,
+            body: response.data
         };
     } catch (error) {
         if (error.code === "400") {

@@ -4,4 +4,5 @@ import Stage from "../../infra/typeorm/entities/Stage";
 export interface IStageRepository {
     createStage(stageName: string, constructionId: number): Promise<Stage>;
     getStage(id: number, construction: Construction): Promise<Stage>;
+    getAllStages(constructionId: number): Promise<Stage[]>;
 }

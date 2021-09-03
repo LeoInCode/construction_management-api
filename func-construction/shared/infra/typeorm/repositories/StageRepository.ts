@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
-import { getRepository, Repository } from 'typeorm';
+import { Brackets, getRepository, Repository } from 'typeorm';
 import { InternalServerErrorException } from '../../../exception/internalServerError.exception';
 import { NotFoundException } from '../../../exception/notFound.exception';
 import { IConstructionRepository } from '../../../interfaces/repositories/IConstructionRepository';
@@ -64,6 +64,29 @@ class StageRepository implements IStageRepository {
             if(error.code) {
                 throw error;
             }
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "Stage"
+            );
+        }
+    }
+
+    public async getAllStages(constructionId: number): Promise<Stage[]> {
+        try {
+            const stage = await this.ormRepository
+            .createQueryBuilder('stage')
+            .leftJoinAndSelect('stage.activity_items', 'activity')
+            .where(
+                new Brackets(qb => {
+                    qb.where('stage.construction_id = :constructionId', { constructionId });
+                })
+            )
+            .getMany();
+
+            return stage;
+        } catch (error) {
             throw new InternalServerErrorException(
                 "500",
                 error.message,
