@@ -50,8 +50,8 @@ class StagePriceRepository implements IStagePriceRepository {
             if (stagePrice?.length == 0) {
                 throw new NotFoundException(
                     "400",
-                    "Stage da contrução não encontrados",
-                    "Stage da contrução não encontrados",
+                    "Stage da construção não encontrados",
+                    "Stage da construção não encontrados",
                     "ERROR"
                 );
             }

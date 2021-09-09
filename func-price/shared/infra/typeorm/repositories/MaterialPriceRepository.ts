@@ -50,8 +50,8 @@ class MaterialPriceRepository implements IMaterialPriceRepository {
             if (materialPrice?.length == 0) {
                 throw new NotFoundException(
                     "400",
-                    "Materiais da contrução não encontrados",
-                    "Materiais da contrução não encontrados",
+                    "Materiais da construção não encontrados",
+                    "Materiais da construção não encontrados",
                     "ERROR"
                 );
             }

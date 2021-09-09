@@ -27,6 +27,7 @@ class GetMaterialPriceService {
                 displayName: materialPrice.display_name,
                 unitPrice: +materialPrice.unit_price,
                 quantity: +materialPrice.quantity,
+                totalBalance: +materialPrice.unit_price * +materialPrice.quantity,
                 creationDate: materialPrice.creation_date,
                 lastUpdate: materialPrice.last_update
             };

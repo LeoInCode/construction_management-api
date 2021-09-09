@@ -50,8 +50,8 @@ class ManpowerPriceRepository implements IManpowerPriceRepository {
             if (manpowerPrice?.length == 0) {
                 throw new NotFoundException(
                     "400",
-                    "Manpower da contrução não encontrados",
-                    "Manpower da contrução não encontrados",
+                    "Manpower da construção não encontrados",
+                    "Manpower da construção não encontrados",
                     "ERROR"
                 );
             }

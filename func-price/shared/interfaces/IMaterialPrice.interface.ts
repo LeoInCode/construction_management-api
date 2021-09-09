@@ -4,6 +4,7 @@ export interface IMaterialPrice {
     unitPrice: number;
     quantity: number;
     position?: string;
+    totalBalance?: number;
     creationDate?: Date;
     lastUpdate?: Date;
 }
