@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class CreateTableCreateStage1626209130943 implements MigrationInterface {
+export class CreateTableStage1630956212065 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -52,4 +52,5 @@ export class CreateTableCreateStage1626209130943 implements MigrationInterface {
         await queryRunner.dropForeignKey('stage', 'stage_FK_construction_config');
         await queryRunner.dropTable('stage');
     }
+
 }
