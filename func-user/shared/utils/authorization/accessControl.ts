@@ -30,11 +30,13 @@ controle
     .createAny('description')
     .createAny('activityresult')
 
+    .updateAny('stage')
     .updateAny('activity')
     .updateAny('price')
     .updateAny('description')
     .updateAny('activityresult')
 
+    .deleteAny('stage')
     .deleteAny('activity')
     .deleteAny('price')
     .deleteAny('description')
