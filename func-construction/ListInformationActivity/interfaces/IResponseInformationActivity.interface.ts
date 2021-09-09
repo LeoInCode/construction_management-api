@@ -1,8 +1,8 @@
 export interface IDescriptionResponseInformation {
     id: number;
     responsible: string;
-    creationDate: Date;
-    deadline: Date;
+    creationDate: string;
+    deadline: string;
     description: string;
     description_img: string;
 }

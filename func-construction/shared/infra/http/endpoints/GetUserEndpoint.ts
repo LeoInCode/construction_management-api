@@ -12,16 +12,4 @@ export default class UserEndpoint implements IUserEndpoint {
             }
         });
     }
-
-    public async updateUser(accessToken: string, refreshToken: string): Promise<AxiosResponse<IResponseUpdateUser>> {
-        const position = 'admin';
-        return UserAPI.put('/user', {
-            position,
-            refreshToken
-        },{
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
-    }
 }

@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { inject, injectable } from "tsyringe";
 import { IInformationActivityRepository } from "../../shared/interfaces/repositories/IInformationActivityRepository";
 import { IActivityResponseInformation, IDescriptionResponseInformation } from "../interfaces/IResponseInformationActivity.interface";
@@ -17,8 +19,8 @@ class ListInformationActivityService {
             const description: IDescriptionResponseInformation = {
                 id: informationActivity.id,
                 responsible: informationActivity.responsible,
-                creationDate: informationActivity.creation_date,
-                deadline: informationActivity.deadline,
+                creationDate: format(new Date(informationActivity.creation_date.toString()), 'dd/MM/yyyy', { locale: ptBR }),
+                deadline: format(new Date(informationActivity.deadline.toString()), 'dd/MM/yyyy', { locale: ptBR }),
                 description: informationActivity.description,
                 description_img: informationActivity.description_img
             };

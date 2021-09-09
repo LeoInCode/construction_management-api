@@ -20,16 +20,6 @@ class HandleContent {
             throw response.data;
         }
     }
-
-    public async updateUser(accessToken: string, refreshToken: string): Promise<IResponseUpdateUser> {
-        try {            
-            const { data } = await this.userEndpoint.updateUser(accessToken, refreshToken);
-
-            return data;
-        } catch ({response}) {
-            throw response.data;
-        }
-    }
 }
 
 export default HandleContent;

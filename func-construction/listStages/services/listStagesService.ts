@@ -20,9 +20,13 @@ class ListStages {
                     stageName: stage.stage_name,
                     creationDate: stage.creation_date,
                     lastUpdate: stage.last_update,
-                    stageItems: stage.activity_items.map(item => {
+                    items: stage.activity_items.map(item => {
                         return {
-                            activityName: item.activity_name
+                            id: item.id,
+                            constructionId: item.construction_id,
+                            activityName: item.activity_name,
+                            creationDate: item.creation_date,
+                            lastUpdate: item.last_update
                         }
                     })
                 }
