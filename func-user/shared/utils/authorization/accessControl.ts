@@ -5,6 +5,7 @@ controle
     .grant('client')
 
     .readAny('user')
+    .readAny('stage')
     .readAny('activity')
     .readAny('price')
     .readAny('description')
@@ -23,6 +24,7 @@ controle
     .grant('admin')
     .extend('client')
 
+    .createAny('stage')
     .createAny('activity')
     .createAny('price')
     .createAny('description')
