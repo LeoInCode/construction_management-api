@@ -8,8 +8,7 @@ controle
     .readAny('stage')
     .readAny('activity')
     .readAny('price')
-    .readAny('description')
-    .readAny('activityresult')
+    .readAny('information')
 
     .updateOwn('user')
 
@@ -17,8 +16,7 @@ controle
     .grant('employee')
     .extend('client')
     
-    .updateOwn('description')
-    .updateOwn('activityresult')
+    .updateOwn('information')
 
 controle
     .grant('admin')
@@ -27,21 +25,18 @@ controle
     .createAny('stage')
     .createAny('activity')
     .createAny('price')
-    .createAny('description')
-    .createAny('activityresult')
+    .createAny('information')
 
     .updateAny('construction')
     .updateAny('stage')
     .updateAny('activity')
     .updateAny('price')
-    .updateAny('description')
-    .updateAny('activityresult')
+    .updateAny('information')
 
     .deleteAny('construction')
     .deleteAny('stage')
     .deleteAny('activity')
     .deleteAny('price')
-    .deleteAny('description')
-    .deleteAny('activityresult')
+    .deleteAny('information')
 
 export default controle;
