@@ -1,17 +1,28 @@
 import 'reflect-metadata';
 import { inject, injectable } from "tsyringe";
 import { IStageRepository } from "../../shared/interfaces/repositories/IStageRepository";
+import { IHandleContent } from '../../shared/interfaces/services/IHandleContent';
+import { DataTypeGetUser } from '../../shared/utils/dataTypeGetUser';
 
 @injectable()
 class ListStages {
 
     constructor(
         @inject('StageRepository')
-        private stageRepository: IStageRepository
+        private stageRepository: IStageRepository,
+        @inject('HandleContent')
+        private handleContent: IHandleContent
     ) {}
 
-    public async execute(constructionId: number): Promise<any> {
+    public async execute(constructionId: number, position: string, accessToken: string): Promise<any> {
         try {
+            await this.handleContent.getUser(
+                accessToken,
+                position,
+                DataTypeGetUser.stage.entity,
+                DataTypeGetUser.action.read
+            );
+
             const stages = await this.stageRepository.getAllStages(constructionId);
 
             const allStages = stages.map(stage => {

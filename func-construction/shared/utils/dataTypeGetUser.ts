@@ -1,5 +1,19 @@
 export const DataTypeGetUser = {
-    entity:"construction",
+    construction: {
+        entity:"construction",
+    },
+    stage: {
+        entity:"stage",
+    },
+    activity: {
+        entity:"activity",
+    },
+    price: {
+        entity:"price",
+    },
+    information: {
+        entity:"information",
+    },
     action: {
         read: "read",
         create: "create",

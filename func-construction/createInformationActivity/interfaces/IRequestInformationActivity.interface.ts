@@ -8,4 +8,5 @@ export interface IRequestInformationActivity {
     progress?: number;
     result?: string;
     result_img?: string;
+    position: string;
 }

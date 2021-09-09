@@ -3,12 +3,18 @@ import { container } from 'tsyringe';
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import ListInformationActivityService from './services/listInformationActivityService';
 import '../container';
+import { MemberNotAuthenticatedException } from '../shared/exception/memberNotAuthenticatedexception';
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
+        if(!req.headers['authorization']) {
+            throw new MemberNotAuthenticatedException();
+        }
+        let accessToken = req.headers.authorization.split(' ')[1];
+
         const informationActivity = container.resolve(ListInformationActivityService);
-        const createInformationActivity = await informationActivity.execute(+req.params.id);
+        const createInformationActivity = await informationActivity.execute(+req.params.id, req.query.position, accessToken);
         context.res = {
             status: createInformationActivity.status,
             body: createInformationActivity.data

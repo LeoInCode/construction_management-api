@@ -1,5 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IActivityRepository } from "../../shared/interfaces/repositories/IActivityRepository";
+import { IHandleContent } from "../../shared/interfaces/services/IHandleContent";
+import { DataTypeGetUser } from "../../shared/utils/dataTypeGetUser";
 import { IRequestActivity } from "../interfaces/IRequestActivity.interface";
 
 @injectable()
@@ -7,11 +9,20 @@ class CreateActivityService {
 
     constructor(
         @inject('ActivityRepository')
-        private activityRepository: IActivityRepository
+        private activityRepository: IActivityRepository,
+        @inject('HandleContent')
+        private handleContent: IHandleContent
     ) {}
 
-    public async execute(payload: IRequestActivity) {
+    public async execute(payload: IRequestActivity, accessToken: string) {
         try {
+            await this.handleContent.getUser(
+                accessToken,
+                payload.position,
+                DataTypeGetUser.activity.entity,
+                DataTypeGetUser.action.create
+            );
+
             await this.activityRepository.createActivity(payload);
     
             return {

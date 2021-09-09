@@ -5,6 +5,7 @@ import { RequestValidation } from "../shared/utils/requestValidation";
 import CreateActivityService from './services/createActivityService';
 import * as path from 'path';
 import '../container';
+import { MemberNotAuthenticatedException } from '../shared/exception/memberNotAuthenticatedexception';
 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
@@ -15,8 +16,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
     
     try {
+        if(!req.headers['authorization']) {
+            throw new MemberNotAuthenticatedException();
+        }
+        let accessToken = req.headers.authorization.split(' ')[1];
+
         const activity = container.resolve(CreateActivityService);
-        const createActivity = await activity.execute(req.body);
+        const createActivity = await activity.execute(req.body, accessToken);
         context.res = {
             status: createActivity.status,
             body: createActivity.data
