@@ -29,10 +29,10 @@ class InformationActivityRepository implements IInformationActivityRepository {
             responsible,
             deadline,
             description,
-            description_img,
+            descriptionImg,
             progress,
             result,
-            result_img}: IRequestInformationActivity): Promise<InformationActivity> {
+            resultImg}: IRequestInformationActivity): Promise<InformationActivity> {
         try {
             const construction = await this.constructionRepository.getConstruction(constructionId);
 
@@ -44,13 +44,50 @@ class InformationActivityRepository implements IInformationActivityRepository {
                 responsible: responsible,
                 deadline: deadline || new Date(),
                 description: description,
-                description_img: description_img,
+                description_img: descriptionImg,
                 progress: progress || 0,
                 result: result,
-                result_img: result_img
+                result_img: resultImg
             });
 
             return await this.ormRepository.save(informationActivity);
+        } catch (error) {
+            if (error.code) {
+                throw error;
+            }
+            throw new InternalServerErrorException(
+                "500",
+                error.message,
+                "ERROR",
+                "InformationActivity"
+            );
+        }
+    }
+
+    public async updateInformationActivity(id: number, {
+            activityId,
+            constructionId,
+            responsible,
+            deadline,
+            description,
+            descriptionImg,
+            progress,
+            result,
+            resultImg}: IRequestInformationActivity): Promise<void> {
+        try {
+            // const construction = await this.constructionRepository.getConstruction(constructionId);
+
+            // const activity = await this.activityRepository.getActivity(activityId, construction);
+            
+            await this.ormRepository.update({id: id}, {
+                responsible: responsible,
+                deadline: deadline || new Date(),
+                description: description,
+                description_img: descriptionImg,
+                progress: progress,
+                result: result,
+                result_img: resultImg
+            });
         } catch (error) {
             if (error.code) {
                 throw error;
