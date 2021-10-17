@@ -16,8 +16,7 @@ export class CreateTableManpowerPrice1624234536917 implements MigrationInterface
                     },
                     {
                         name: 'construction_id',
-                        type: 'numeric',
-                        isNullable: false
+                        type: 'integer'
                     },
                     {
                         name: 'occupation',

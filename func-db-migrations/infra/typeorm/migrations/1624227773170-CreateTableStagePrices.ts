@@ -16,8 +16,7 @@ export class CreateTableStagePrices1624227773170 implements MigrationInterface {
                     },
                     {
                         name: 'construction_id',
-                        type: 'numeric',
-                        isNullable: false
+                        type: 'integer'
                     },
                     {
                         name: 'stage',

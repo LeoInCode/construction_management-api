@@ -25,6 +25,7 @@ export class CreateTableActivity1626221537777 implements MigrationInterface {
                     {
                         name: 'activity_name',
                         type: 'varchar',
+                        isNullable: false
                     },
                     {
                         name: 'creation_date',
