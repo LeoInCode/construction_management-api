@@ -41,20 +41,9 @@ export class CreateTableBalanceConstruction1636589800928 implements MigrationInt
                 ]
             })
         )
-        
-        await queryRunner.createForeignKey(
-            'stage',
-            new TableForeignKey({
-                name: 'balance_construction_FK_construction_config',
-                columnNames: ['construction_id'],
-                referencedTableName: 'construction_config',
-                referencedColumnNames: ['id']
-            })
-        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('balance_construction', 'balance_construction_FK_construction_config');
         await queryRunner.dropTable('balance_construction');
     }
 
