@@ -17,7 +17,7 @@ class CreateMaterialPriceService {
 
     public async execute(body: IMaterialPrice, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, body.position, DataTypeGetUser.entity, DataTypeGetUser.action.create);
+            await this.handleContent.getUser(accessToken, body.position, DataTypeGetUser.price.entity, DataTypeGetUser.action.create);
                         
             await this.materialPriceRepository.createMaterialPrice(body);
     

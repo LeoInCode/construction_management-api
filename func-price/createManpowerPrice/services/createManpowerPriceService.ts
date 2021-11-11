@@ -17,7 +17,7 @@ class CreateManpowerPriceService {
 
     public async execute(body: IManpowerPrice, accessToken: string) {
         try {            
-            await this.handleContent.getUser(accessToken, body.position, DataTypeGetUser.entity, DataTypeGetUser.action.create);
+            await this.handleContent.getUser(accessToken, body.position, DataTypeGetUser.price.entity, DataTypeGetUser.action.create);
             
             await this.manpowerPriceRepository.createManpowerPrice(body);
     

@@ -1,5 +1,10 @@
 export const DataTypeGetUser = {
-    entity:"price",
+    price: {
+        entity:"price"
+    },
+    graphic: {
+        entity: "graphic"
+    },    
     action: {
         read: "read",
         create: "create",

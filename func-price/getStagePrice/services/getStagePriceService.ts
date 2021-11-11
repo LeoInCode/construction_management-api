@@ -18,7 +18,7 @@ class GetStagePriceService {
 
     public async execute(id: string, position: string, accessToken: string) {
         try {
-            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.entity, DataTypeGetUser.action.read);
+            await this.handleContent.getUser(accessToken, position, DataTypeGetUser.price.entity, DataTypeGetUser.action.read);
 
             const stagePrice: StagePrice = await this.stagePriceRepository.getStagePrice(+id);
 
