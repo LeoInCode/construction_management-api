@@ -1,62 +1,62 @@
-export const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 export const amountForMonths = {
-    january: {
+    January: {
         type: '01',
         price: 0,
         balance: 0
     },
-    february: {
+    February: {
         type: '02',
         price: 0,
         balance: 0
     },
-    march: {
+    March: {
         type: '03',
         price: 0,
         balance: 0
     },
-    april: {
+    April: {
         type: '04',
         price: 0,
         balance: 0
     },
-    may: {
+    May: {
         type: '05',
         price: 0,
         balance: 0
     },
-    june: {
+    June: {
         type: '06',
         price: 0,
         balance: 0
     },
-    july: {
+    July: {
         type: '07',
         price: 0,
         balance: 0
     },
-    august: {
+    August: {
         type: '08',
         price: 0,
         balance: 0
     },
-    september: {
+    September: {
         type: '09',
         price: 0,
         balance: 0
     },
-    october: {
+    October: {
         type: '10',
         price: 0,
         balance: 0
     },
-    november: {
+    November: {
         type: '11',
         price: 0,
         balance: 0
     },
-    december: {
+    December: {
         type: '12',
         price: 0,
         balance: 0
