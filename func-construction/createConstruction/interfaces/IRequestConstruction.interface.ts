@@ -3,7 +3,6 @@ export interface IRequestConstruction {
     responsible: string;
     client: string;
     type: string;
-    occupation: string;
     profileId: string;
     position: string;
     displayName: string;

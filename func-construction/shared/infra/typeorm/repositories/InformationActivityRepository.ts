@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { getRepository, Repository } from 'typeorm';
@@ -74,14 +75,10 @@ class InformationActivityRepository implements IInformationActivityRepository {
             progress,
             result,
             resultImg}: IRequestInformationActivity): Promise<void> {
-        try {
-            // const construction = await this.constructionRepository.getConstruction(constructionId);
-
-            // const activity = await this.activityRepository.getActivity(activityId, construction);
-            
+        try {                   
             await this.ormRepository.update({id: id}, {
                 responsible: responsible,
-                deadline: deadline || new Date(),
+                deadline: deadline ? new Date(deadline.split('/').reverse().join('/') + ' 23:59:59') : new Date(),
                 description: description,
                 description_img: descriptionImg,
                 progress: progress,
