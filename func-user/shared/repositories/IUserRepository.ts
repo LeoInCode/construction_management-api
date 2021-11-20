@@ -6,5 +6,5 @@ export default interface IUserRepository {
     createUser({ completeName, email }: IUser, passwordHash: string): Promise<User>;
     updateUser(id: number, user: IPayload): Promise<User>;
     getUser(id: number): Promise<User>;
-    getUserByEmail(email: string): Promise<User>;
+    getUserByCPF(cpf: string): Promise<User>;
 }

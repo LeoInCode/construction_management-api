@@ -14,11 +14,11 @@ class UserRepository implements IUserRepository {
         this.ormRepository = getRepository(User);
     }
 
-    public async getUserByEmail(email: string): Promise<User> {
+    public async getUserByCPF(cpf: string): Promise<User> {
         try {
             const user = await this.ormRepository.findOne({
                 where: {
-                    email: email
+                    cpf: cpf
                 }
             });
             
@@ -45,7 +45,7 @@ class UserRepository implements IUserRepository {
         }
     }
 
-    public async createUser({ completeName, email, cpf, password }: IUser, passwordHash: string): Promise<User> {
+    public async createUser({ completeName, email, cpf }: IUser, passwordHash: string): Promise<User> {
         try {
             const user = this.ormRepository.create({
                 complete_name: completeName,

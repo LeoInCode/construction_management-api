@@ -13,11 +13,11 @@ class LoginService {
         @inject('UserRepository')
         private userRepository: IUserRepository) { }
 
-    public async execute(email: string, password: string) {
+    public async execute(cpf: string, password: string) {
         try {
             this.authService = new AuthService();
 
-            const user = await this.userRepository.getUserByEmail(email);
+            const user = await this.userRepository.getUserByCPF(cpf);
             
             await this.authService.verifyPassword(password, user.password);
             
@@ -38,8 +38,8 @@ class LoginService {
                 data: userFiltered
             }
 
-        } catch (error) {
-            return {
+        } catch (error) {            
+            throw {
                 status: 400,
                 data: {
                     message: error.message

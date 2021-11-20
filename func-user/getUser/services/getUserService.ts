@@ -34,7 +34,7 @@ class GetUserService {
             }
 
         } catch (error) {
-            return {
+            throw {
                 status: 400,
                 data: {
                     message: error.message

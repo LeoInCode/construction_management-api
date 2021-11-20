@@ -13,8 +13,8 @@ class AuthService {
         } catch (error) {
             throw new GeneralErrorException(
                 "400",
-                "Error ao gerar criptografia",
-                "Error ao gerar criptografia",
+                "Erro ao gerar criptografia",
+                "Erro ao gerar criptografia",
                 "ERROR",
                 400
             );

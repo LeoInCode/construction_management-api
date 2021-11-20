@@ -10,7 +10,7 @@ import { GeneralErrorException } from '../shared/exception/generalError.exceptio
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 
     try {
-        if (!req.headers['email'] || !req.headers['password']) {
+        if (!req.headers['cpf'] || !req.headers['password']) {
             throw new GeneralErrorException(
                 "400",
                 "Campos inválidos",
@@ -21,7 +21,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         }
 
         const getUser = container.resolve(LoginService);
-        const userResponse = await getUser.execute(req.headers['email'], req.headers['password']);
+        const userResponse = await getUser.execute(req.headers['cpf'], req.headers['password']);
         context.res = {
             status: userResponse.status,
             body: userResponse.data
@@ -41,6 +41,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             status: error.status ? error.status : 500,
             body: error.data
         };
+        throw error;
     }
 
 };

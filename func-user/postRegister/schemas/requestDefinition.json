@@ -27,7 +27,7 @@
             "title": "The completeName Schema",
             "description": "Nome do usuário",
             "default": "",
-            "minLength": 10,
+            "minLength": 2,
             "maxLength": 40,
             "examples": [
                 "string"
