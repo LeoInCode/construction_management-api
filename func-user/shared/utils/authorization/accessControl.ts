@@ -22,6 +22,8 @@ controle
     .grant('admin')
     .extend('client')
 
+    .readAny('graphic')
+
     .createAny('stage')
     .createAny('activity')
     .createAny('price')
