@@ -25,7 +25,7 @@ class ListCostsForMonthsService {
 
 	public async execute(constructionId: number, position: string, accessToken: string) {
 		try {
-			// await this.handleContent.getUser(accessToken, position, DataTypeGetUser.graphic.entity, DataTypeGetUser.action.read);
+			await this.handleContent.getUser(accessToken, position, DataTypeGetUser.graphic.entity, DataTypeGetUser.action.read);
 
 			const materialPrice = await this.materialPriceRepository.listMaterialPrice(constructionId);
 
