@@ -24,7 +24,7 @@ A whole application backend will be running in the Microsoft Azure. To implement
 On backend, we are using Node.JS with TypeScript to implement our functions and PostgreSQL to store our data. Redis is used like a memory bank to store the accessToken and the refreshToken, this way we can search on him and look for a user connected.
 
 <h1 align="center">
-    <img alt="Architecture" src="images/Architecture.png" width="500px" />
+    <img alt="Architecture" src="images/Architecture.png" width="600px" />
 </h1>
 
 We also divide our implementation im many projects and we gave responsibilities to each one. Look the Table for more explanation.
@@ -47,7 +47,7 @@ You can look the whole implementation in this link: [func-user](https://github.c
 ##### func-db-migrations
 We centralize all migrations in this project to have more controle about the fields and tables who are created in the database. We are using Typeorm, he is a ORM that can provide more facility to connecte the database, and also to create the tables.
 <h1 align="center">
-    <img alt="Database" src="images/Database.png" width="500px" />
+    <img alt="Database" src="images/Database.png" width="700px" />
 </h1>
 You can look the whole implementation in this link: [func-db-migrations](https://github.com/LeoInCode/construction_management-api/tree/main/func-db-migrations "func-db-migrations")
 
