@@ -18,7 +18,7 @@ class ListInformationActivityService {
 
     public async execute(id: number, position: string, accessToken: string): Promise<any> {
         try {
-            await this.handleContent.getUser(
+            const user = await this.handleContent.getUser(
                 accessToken,
                 position,
                 DataTypeGetUser.information.entity,
@@ -41,13 +41,14 @@ class ListInformationActivityService {
                 progress: +informationActivity.progress,
                 result: informationActivity.result,
                 result_img: informationActivity.result_img
-            };
+            };            
 
             return {
                 status: 200,
                 data: {
                     description,
-                    activity
+                    activity,
+                    permission: user.permission
                 }
             }
             
