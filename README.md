@@ -1,7 +1,7 @@
 # Construction Management API
 
 
-This project was implemented to my Final paper. We going to talk about backend tecnologies used in this project. We also will talk about architeture planned to the entire project, who involves Node.JS, TypeScript, Azure, PostgreSQL, Redis, React Native and Redux.
+This project was implemented to my Final paper by course of Science Computer. We going to talk about backend tecnologies used in this project. We also will talk about architeture planned to the entire project, who involves Node.JS, TypeScript, Azure, PostgreSQL, Redis, React Native and Redux.
 
 ---
 
